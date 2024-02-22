@@ -1,0 +1,12 @@
+User-agent: *
+Disallow: /img/
+Disallow: /index.html
+Disallow: /imprint.html
+Disallow: /picker.html
+Disallow: /*.js
+Disallow: /*.csv
+Disallow: /*.sql
+Disallow: /*.gz
+Disallow: /*.json
+Disallow: /404.html
+Disallow: /cdn-cgi/

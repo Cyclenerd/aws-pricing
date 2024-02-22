@@ -1,0 +1,25 @@
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+[%-
+	# title = Recommended title length is between 50 and 60 characters.
+	# description = Recommendation today is to keep your page description between 110 and 160 characters.
+	# og:title = 40 characters for mobile and 60 for desktop is roughly the sweet spot.
+	# og:description = Facebook recommends 2–4 sentences, but that often truncates.
+-%]
+[% IF description %]<meta name="description" content="[% description %]">[% END %]
+[% IF robots %]<meta name="robots" content="[% robots %]">[% END %]
+[%- IF title && description && url -%]
+<meta name="twitter:title"       content="[% title %]">
+<meta name="twitter:description" content="[% description %]">
+<meta name="twitter:card"        content="summary_large_image">
+<meta name="twitter:image:src"   content="[% site.url %]/img/social.png">
+<meta property="og:title"        content="[% title %]">
+<meta property="og:description"  content="[% description %]">
+<meta property="og:url"          content="[% site.url %][% url %]">
+<meta property="og:type"         content="website">
+<meta property="og:image"        content="[% site.url %]/img/social.png">
+<meta property="og:image:alt"    content="[% site.title %]">
+<meta property="og:image:width"  content="1280">
+<meta property="og:image:height" content="640">
+[%- END -%]

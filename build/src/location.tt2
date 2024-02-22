@@ -1,0 +1,169 @@
+[%-
+	url = '/'_ location.location _'.html';
+	title = location.location _' - '_ location.locationType;
+	description = 'List off all Amazon Elastic Compute Cloud (EC2) instance types and Amazon Elastic Block Store (EBS) volumes in '_ location.locationType _' '_ location.location _'.';
+-%]
+[%- PROCESS include_header.tt2 -%]
+
+<h1>[% location.locationType %] [% location.location %]</h1>
+
+<blockquote class="blockquote">
+<p>
+Out of a total of [% instances.size %] Amazon Elastic Compute Cloud (EC2) instance types,
+Amazon Web Services (AWS) offers <mark>[% locationInstances.size || "0" %]</mark> instance types in AWS location <code>[% location.location %]</code> [% location.locationName %].
+</p>
+</blockquote>
+
+<p class="d-grid gap-2 d-lg-block">
+	<a class="btn btn-success" href="/picker.html?location=[% location.location %]" role="button">
+		✅ Instance Picker with filter on AWS location [% location.location %]
+	</a>
+</p>
+
+[%- IF locationDisks.size -%]
+<h2>Amazon EBS Volume Types in [% location.location %]</h2>
+<p>Costs and pricing for Amazon Elastic Block Store (EBS) volume types in AWS location <code>[% location.location %]</code> [% location.locationName %].</p>
+<div class="table-responsive">
+<table class="table table-sm table-hover table-bordered">
+<thead>
+<tr>
+	<th scope="col" colspan="6">Volume</th>
+	<th scope="col" colspan="3">Costs per Month</th>
+</tr>
+<tr>
+	<th scope="col">Name</th>
+	<th scope="col">Type</th>
+	<th scope="col">Media</th>
+	<th scope="col">Max. Volume Size</th>
+	<th scope="col">Max. IOPS</th>
+	<th scope="col">Max. Throughput</th>
+	<!-- Costs -->
+	<th scope="col">GB</th>
+	<th scope="col">IOPS</th>
+	<th scope="col">Throughput (1 GBps)</th>
+</tr>
+</thead>
+<tbody>
+[%- FOREACH disk IN locationDisks -%]
+<tr>
+<td><code>[% disk.storage %]</code></td>
+<td>[% disk.storageType %]</td>
+<td>[% disk.storageMedia %]</td>
+<td>[% disk.maxVolumeSize %]</td>
+<td>[% disk.maxIops %]</td>
+<td>[% disk.maxThroughput %]</td>
+<!-- Costs -->
+[% IF disk.priceGb %]<td class="usd">[% disk.priceGb %]</td>[% ELSE %]<td class="text-muted">N/A</td>[% END %]
+[% IF disk.priceIops %]<td class="usd">[% disk.priceIops %]</td>[% ELSE %]<td class="text-muted">free</td>[% END %]
+[% IF disk.priceThroughput %]<td class="usd">[% disk.priceThroughput %]</td>[% ELSE %]<td class="text-muted">free</td>[% END %]
+</tr>
+[%- END -%]
+</tbody>
+</table>
+</div> <!-- // table-responsive -->
+[%- END -%]
+
+<h2>Amazon EC2 Instance Types in [% location.location %]</h2>
+<p>Costs and pricing for Amazon Elastic Compute Cloud (EC2) instance types in AWS location <code>[% location.location %]</code> [% location.locationName %].</p>
+<div class="table-responsive">
+<table
+	class="table table-sm table-hover table-bordered"
+	data-classes="table table-sm table-hover table-bordered"
+	data-toggle="table"
+	data-sort-name="vcpu"
+	data-sort-order="asc"
+	data-sortable="true"
+	data-sticky-header="true"
+>
+<thead>
+<tr>
+	<th scope="col" colspan="6">Instance Type</th>
+	<th scope="col" colspan="2">Costs per Hour</th>
+	<th scope="col" colspan="6">Costs per Month</th>
+</tr>
+<tr>
+	<th scope="col" data-sortable="true">Name</th>
+	<th scope="col" data-field="vcpu" data-sortable="true">vCPU</th>
+	<th scope="col" data-sortable="true">Base Clock</th>
+	<th scope="col" data-sortable="true">Memory</th>
+	<th scope="col" data-sortable="true">Network Performance</th>
+	<th scope="col"></th>
+	<!-- Costs -->
+	<th scope="col" title="On-Demand Instance" data-sortable="true" data-field="hour">On-Demand</th>
+	<th scope="col" title="Spot Instance" data-sortable="true">Spot</th>
+	<th scope="col" title="On-Demand Instance" data-sortable="true">On-Demand</th>
+	<th scope="col" title="Spot Instance" data-sortable="true">Spot</th>
+	<th scope="col" title="Standard Reserved Instance (RI), 1 year, no upfront"       data-sortable="true">1Y RI (No)</th>
+	<th scope="col" title="Standard Reserved Instance (RI), 1 year, all upfront"      data-sortable="true">1Y RI (All)</th>
+	<th scope="col" title="Standard Reserved Instance (RI), 3 years, no upfront"      data-sortable="true">3Y RI (No)</th>
+	<th scope="col" title="Standard Reserved Instance (RI), 3 years, all upfront"     data-sortable="true">3Y RI (All)</th>
+</tr>
+</thead>
+<tbody>
+[%- FOREACH instance IN locationInstances -%]
+<tr>
+<td><a href="/[% instance.instanceType %].html" title="AWS EC2 instance type '[% instance.instanceType %]'"><code>[% instance.instanceType %]</code></a></td>
+<td class="text-nowrap">[% instance.vCpus %]</td>
+[% IF instance.processorClockSpeedInGhz %]<td class="ghz" title="CPU base clock frequency: [% instance.processorClockSpeedInGhz %] GHz">[% instance.processorClockSpeedInGhz %]</td>[% ELSE %]<td class="text-muted">?</td>[% END %]
+<td class="gb" title="Random-access memory: [% instance.memorySizeInMiB %] MiB">[% instance.memorySizeInGiB %]</td>
+<td>[% instance.networkPerformance %]</td>
+<td>
+	[% badgeCpuManufactur(instance) %]
+	[% badgeBareMetal(instance) %]
+	[% badgeGpu(instance) %]
+	[% badgeSap(instance) %]
+	[% badgeSapHana(instance) %]
+</td>
+<!-- Costs / Hour -->
+[% IF instance.onDemandLinuxHr %]
+<td class="usd" title="Costs per hour for EC2 instance '[% instance.instanceType %]': [% instance.onDemandLinuxHr %] USD">[% instance.onDemandLinuxHr %]</td>
+[% ELSIF instance.onDemandLinuxHostHr %]
+<td class="usd" title="Costs per hour for EC2 hosts '[% instance.instanceType %]': [% instance.onDemandLinuxHostHr %] USD">[% instance.onDemandLinuxHostHr %]</td>
+[% ELSE %]
+<td class="text-muted">N/A</td>
+[% END %]
+[% IF instance.spotLinuxHr %]<td class="usd" title="Costs per hour for EC2 instance '[% instance.instanceType %]' with spot provisioning model (Spot Instance): [% instance.spotLinuxHr %] USD">[% instance.spotLinuxHr %]</td>[% ELSE %]<td class="text-muted">N/A</td>[% END %]
+<!-- Costs / Month -->
+[% IF instance.onDemandLinuxMonth %]
+<td class="usd" title="Costs per month for EC2 instance '[% instance.instanceType %]': [% instance.onDemandLinuxMonth %] USD">[% instance.onDemandLinuxMonth %]</td>
+[% ELSIF instance.onDemandLinuxHostMonth %]
+<td class="usd" title="Costs per month for EC2 host '[% instance.instanceType %]': [% instance.onDemandLinuxHostMonth %] USD">[% instance.onDemandLinuxHostMonth %]</td>
+[% ELSE %]
+<td class="text-muted">N/A</td>
+[% END %]
+[% IF instance.spotLinuxMonth %]<td class="usd" title="Costs per month for EC2 instance '[% instance.instanceType %]' with spot provisioning model (Spot Instance): [% instance.spotLinuxMonth %] USD">[% instance.spotLinuxMonth %]</td>[% ELSE %]<td class="text-muted">N/A</td>[% END %]
+<!-- Costs / RI / Month -->
+[% IF instance.reserved1yNoUpfrontLinuxMonth %]
+<td class="usd" title="Costs per month for EC2 instance '[% instance.instanceType %]' with 1 year no upfront paid reserved instance (RI): [% instance.reserved1yNoUpfrontLinuxMonth %] USD">[% instance.reserved1yNoUpfrontLinuxMonth %]</td>
+[% ELSIF instance.reserved1yNoUpfrontLinuxHostMonth %]
+<td class="usd" title="Costs per month for EC2 host '[% instance.instanceType %]' with 1 year no upfront paid reserved instance (RI): [% instance.reserved1yNoUpfrontLinuxHostMonth %] USD">[% instance.reserved1yNoUpfrontLinuxHostMonth %]</td>
+[% ELSE %]
+<td class="text-muted">N/A</td>
+[% END %]
+[% IF instance.reserved1yAllUpfrontLinuxMonth %]
+<td class="usd" title="Costs per month for EC2 instance '[% instance.instanceType %]' with 1 year all upfront paid reserved instance (RI): [% instance.reserved1yAllUpfrontLinuxMonth %] USD">[% instance.reserved1yAllUpfrontLinuxMonth %]</td>
+[% ELSIF instance.reserved1yAllUpfrontLinuxHostMonth %]
+<td class="usd" title="Costs per month for EC2 host '[% instance.instanceType %]' with 1 year all upfront paid reserved instance (RI): [% instance.reserved1yAllUpfrontLinuxHostMonth %] USD">[% instance.reserved1yAllUpfrontLinuxHostMonth %]</td>
+[% ELSE %]
+<td class="text-muted">N/A</td>
+[% END %]
+[% IF instance.reserved3yNoUpfrontLinuxMonth %]
+<td class="usd" title="Costs per month for EC2 instance '[% instance.instanceType %]' with 3 year no upfront paid reserved instance (RI): [% instance.reserved3yNoUpfrontLinuxMonth %] USD">[% instance.reserved3yNoUpfrontLinuxMonth %]</td>
+[% ELSIF instance.reserved3yNoUpfrontLinuxHostMonth %]
+<td class="usd" title="Costs per month for EC2 host '[% instance.instanceType %]' with 3 year no upfront paid reserved instance (RI): [% instance.reserved3yNoUpfrontLinuxHostMonth %] USD">[% instance.reserved3yNoUpfrontLinuxHostMonth %]</td>
+[% ELSE %]
+<td class="text-muted">N/A</td>
+[% END %]
+[% IF instance.reserved3yAllUpfrontLinuxMonth %]
+<td class="usd" title="Costs per month for EC2 instance '[% instance.instanceType %]' with 3 year all upfront paid reserved instance (RI): [% instance.reserved3yAllUpfrontLinuxMonth %] USD">[% instance.reserved3yAllUpfrontLinuxMonth %]</td>
+[% ELSIF instance.reserved3yAllUpfrontLinuxHostMonth %]
+<td class="usd" title="Costs per month for EC2 host '[% instance.instanceType %]' with 3 year all upfront paid reserved instance (RI): [% instance.reserved3yAllUpfrontLinuxHostMonth %] USD">[% instance.reserved3yAllUpfrontLinuxHostMonth %]</td>
+[% ELSE %]
+<td class="text-muted">N/A</td>
+[% END %]
+</tr>
+[%- END -%]
+</tbody>
+</table>
+</div> <!-- // table-responsive -->
+[% PROCESS include_footer.tt2 %]

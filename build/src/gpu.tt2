@@ -1,0 +1,77 @@
+[%-
+	url = '/gpu.html';
+	title = 'Amazon EC2 Instances with Accelerators';
+	description = 'List of Amazon Elastic Compute Cloud (EC2) instance types with Accelerators (GPU). Sorted by GPU count.';
+-%]
+[%- PROCESS include_header.tt2 -%]
+[%- PROCESS include_instances_header.tt2 -%]
+
+<h1>Amazon EC2 Instances with Accelerators</h1>
+
+<blockquote class="blockquote">
+<p>
+Amazon Web Services (AWS) offers <mark>[% instancesGpu.size %]</mark> Amazon Elastic Compute Cloud (EC2) instance types with graphics processing units (GPUs).
+Not every Amazon EC2 instance with GPU is available in every AWS location.
+</p>
+</blockquote>
+
+<p><a class="btn btn-success" href="/picker.html?gpu=1" role="button">✅ Instance Picker with filter on GPU</a></p>
+
+<div class="table-responsive">
+<table
+	class="table table-sm table-hover table-bordered"
+	data-classes="table table-sm table-hover table-bordered"
+	data-toggle="table"
+	data-sort-name="vcpu"
+	data-sort-order="asc"
+	data-sortable="true"
+	data-sticky-header="true"
+>
+<thead>
+<tr>
+	<th scope="col" colspan="4">Instance Type</th>
+	<th scope="col" colspan="4">Accelerator</th>
+	<th scope="col">Locations</th>
+	<th scope="col" colspan="2">Avg. Costs per Hour</th>
+	<th scope="col" colspan="6">Average Costs per Month</th>
+</tr>
+<tr>
+	<th scope="col" data-sortable="true">Name</th>
+	<th scope="col" data-field="vcpu" data-sortable="true">vCPU</th>
+	<th scope="col" data-sortable="true">Base Clock</th>
+	<th scope="col" data-sortable="true">Memory</th>
+	<th scope="col" data-sortable="true">GPU</th>
+	<th scope="col" data-sortable="true">Manufacturer</th>
+	<th scope="col" data-sortable="true">Name</th>
+	<th scope="col" data-sortable="true">Memory</th>
+	<th scope="col" data-sortable="true">#</th>
+	<!-- Costs -->
+	<th scope="col" title="Average costs per hour" data-sortable="true">On-Demand</th>
+	<th scope="col" title="Average costs per Spot Instance hour" data-sortable="true">Spot</th>
+	<th scope="col" title="Average costs per month" data-sortable="true">On-Demand</th>
+	<th scope="col" title="Average costs per Spot Instance month" data-sortable="true">Spot</th>
+	<th scope="col" title="Average costs per month with 1 year no upfront paid reserved instance (RI)" data-sortable="true">1Y RI (No)</th>
+	<th scope="col" title="Average costs per month with 1 year all upfront paid reserved instance (RI)" data-sortable="true">1Y RI (All)</th>
+	<th scope="col" title="Average costs per month with 3 years no upfront paid reserved instance (RI)" data-sortable="true">3Y RI (No)</th>
+	<th scope="col" title="Average costs per month with 3 years all upfront paid reserved instance (RI)" data-sortable="true">3Y RI (All)</th>
+</tr>
+</thead>
+<tbody>
+[%- FOREACH instance IN instancesGpu -%]
+<tr>
+<td><a href="/[% instance.instanceType %].html" title="AWS EC2 instance type '[% instance.instanceType %]'"><code>[% instance.instanceType %]</code></a></td>
+<td class="text-nowrap">[% instance.vCpus %]</td>
+[% IF instance.processorClockSpeedInGhz %]<td class="ghz">[% instance.processorClockSpeedInGhz %]</td>[% ELSE %]<td class="text-muted">?</td>[% END %]
+<td class="gb">[% instance.memorySizeInGiB %]</td>
+<td>[% instance.gpuCount %]</td>
+<td>[% instance.gpuManufacturer %]</td>
+<td>[% instance.gpuName %]</td>
+<td class="gb">[% instance.gpuTotalGpuMemoryInGiB %]</td>
+<td>[% instance.locationsWithInstanceTypeCount %]</td>
+[% PROCESS include_instances_table_costs.tt2 %]
+</tr>
+[%- END -%]
+</tbody>
+</table>
+</div> <!-- // table-responsive -->
+[% PROCESS include_footer.tt2 %]

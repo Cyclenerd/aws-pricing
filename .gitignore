@@ -1,0 +1,14 @@
+/web/**
+/build/import/**
+/build/*.csv
+/build/*.txt
+!/build/sap-hana.csv
+!/build/sap.csv
+/build/*.gz
+/build/*.json
+/build/*.yml
+/build/*.conf
+/build/*.db
+/build/*.db-journal
+/build/aws-instances-locations.sql
+.~lock*

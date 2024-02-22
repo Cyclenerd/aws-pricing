@@ -1,0 +1,19 @@
+[% site.url %]/
+[% site.url %]/amd.html
+[% site.url %]/apple-silicon.html
+[% site.url %]/aws-graviton.html
+[% site.url %]/download.html
+[% site.url %]/gpu.html
+[% site.url %]/instances.html
+[% site.url %]/intel.html
+[% site.url %]/local-zones.html
+[% site.url %]/locations.html
+[% site.url %]/regions.html
+[% site.url %]/sap-hana.html
+[% site.url %]/sap.html
+[% site.url %]/wavelength-zones.html
+
+[%- FOREACH location IN locations %][% site.url %]/[% location.location %].html
+[% END %]
+[%- FOREACH instance IN instances %][% site.url %]/[% instance.instanceType %].html
+[% END %]

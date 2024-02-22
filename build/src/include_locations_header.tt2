@@ -1,0 +1,37 @@
+<div class="row mt-2">
+<div class="col">
+<ul class="nav nav-tabs">
+	<li class="nav-item">
+		<a [% IF template.name == 'locations.tt2' %]class="nav-link active" aria-current="page"[% ELSE %]class="nav-link"[% END %] href="/locations.html">
+			Locations (All)
+			<span class="badge rounded-pill text-bg-secondary">[% locations.size %]</span>
+		</a>
+	</li>
+	<li class="nav-item">
+		<a [% IF template.name == 'regions.tt2' %]class="nav-link active" aria-current="page"[% ELSE %]class="nav-link"[% END %] href="/regions.html">
+			Regions
+			<span class="badge rounded-pill text-bg-secondary">[% regions.size %]</span>
+		</a>
+	</li>
+	<li class="nav-item">
+		<a [% IF template.name == 'local-zones.tt2' %]class="nav-link active" aria-current="page"[% ELSE %]class="nav-link"[% END %] href="/local-zones.html">
+			Local Zones
+			<span class="badge rounded-pill text-bg-secondary">[% localZones.size %]</span>
+		</a>
+	</li>
+	<li class="nav-item">
+		<a [% IF template.name == 'wavelength-zones.tt2' %]class="nav-link active" aria-current="page"[% ELSE %]class="nav-link"[% END %] href="/wavelength-zones.html">
+			Wavelength Zones
+			<span class="badge rounded-pill text-bg-secondary">[% wavelengthZones.size %]</span>
+		</a>
+	</li>
+</ul>
+</div> <!-- // col -->
+</div> <!-- // row -->
+
+[%
+total_public_ip_addr = 0;
+FOREACH location IN locations;
+	IF location.publicIpv4Addr; total_public_ip_addr = total_public_ip_addr + location.publicIpv4Addr; END;
+END;
+%]

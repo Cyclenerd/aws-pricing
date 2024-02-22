@@ -1,0 +1,27 @@
+<!doctype html>
+<html lang="en">
+<head>
+<title>EC2 Instance Picker</title>
+<link rel="canonical" href="[% site.url %]/picker.html">
+[% PROCESS include_favicon.tt2 %]
+<link rel="stylesheet" href="[% site.agGrid.css %]">
+<link rel="stylesheet" href="[% site.agGrid.theme %]">
+<style>
+html            { width: 100%; height: 100%; }
+body            { width: 100%; height: 100%; margin: 0; padding: 0; }
+a               { color: white; }
+.ghz::after     { content: " GHz"; }
+.usd::before    { content: "$"; }
+.gb::after      { content: " GB"; }
+.mbitps::after  { content: " Mbps"; }
+.mbyteps::after { content: " MBps"; }
+</style>
+<meta charset="utf-8">
+<meta name="robots" content="noindex, nofollow">
+<script src="[% site.agGrid.js %]"></script>
+</head>
+<body>
+<div id="myGrid" class="ag-theme-balham-dark" style="height: 100%; width:100%"></div>
+<script src="picker.js?[% timestamp %]"></script>
+</body>
+</html>

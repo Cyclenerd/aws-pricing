@@ -1,0 +1,478 @@
+[%-
+	url = '/'_ instance.instanceType _'.html';
+	title = instance.instanceType _' - Amazon EC2 Instance Type';
+	description = 'Amazon EC2 instance type '_ instance.instanceType _' with '_  instance.vCpus _' vCPUs and '_ instance.memorySizeInGiB _' GB memory. Available in '_ instanceLocations.size _' Amazon Web Services (AWS) locations.';
+-%]
+[%- PROCESS include_header.tt2 -%]
+
+<h1>Amazon EC2 Instance Type [% instance.instanceType %]</h1>
+
+<blockquote class="blockquote">
+	<p>
+		Amazon Elastic Compute Cloud (EC2) instance type <code>[% instance.instanceType %]</code>
+		[%- IF instance.vCpus -%]
+		with <mark>[% instance.vCpus %] vCPU[% IF instance.vCpus > 1 %]s[% END %]</mark> and
+		<mark>[% instance.memorySizeInGiB %] GiB</mark> memory
+		[%- END -%].
+		[%- IF instance.sapSupported || instance.sapHanaSupported -%]
+			EC2 instance type [% instance.name %] is certified for
+			[% IF instance.sapSupported %]SAP applications[% END %]
+			[% IF instance.sapSupported && instance.sapHanaSupported%]and[% END %]
+			[% IF instance.sapHanaSupported %]SAP HANA[% END %]
+			on AWS.
+		[%- END -%]
+		Available in [% instanceLocations.size %] Amazon Web Services (AWS) location[% IF instanceLocations.size > 1 %]s[% END %].
+	</p>
+</blockquote>
+
+<p class="d-grid gap-2 d-lg-block">
+	<a class="btn btn-success" href="/picker.html?name=[% instance.instanceType %]" role="button">✅ Instance Picker with filter on EC2 instance type [% instance.instanceType %]</a>
+	<a class="btn btn-secondary" href="#locations" role="button">Price per Location</a>
+</p>
+
+<div class="row">
+<div class="col-xxl-6">
+
+<h2>Amazon EC2 Instance Type [% instance.instanceType %]</h2>
+<p>Technical facts about the Amazon Elastic Compute Cloud (EC2) instance type <code>[% instance.instanceType %]</code>.</p>
+
+<div class="table-responsive">
+<table class="table table-sm table-hover table-striped table-bordered">
+	<tr>
+		<th>Instance Type</th>
+		<td><code>[% instance.instanceType %]</code></td>
+	</tr>
+	<tr>
+		<th>Instance Family and Generation</th>
+		<td>[% instance.instanceFamily.upper %]</td>
+	</tr>
+	<tr>
+		<th>Instance Family Name</th>
+		<td>[% instance.instanceFamilyName %]</td>
+	</tr>
+	<tr>
+		<th>Current Generation</th>
+		<td>[% booleanYesNo(instance.currentGeneration) %]</td>
+	</tr>
+	<tr>
+		<th>Bare Metal</th>
+		<td>[% booleanYesNo(instance.bareMetal) %]</td>
+	</tr>
+	<tr>
+		<th>Supported Usage Classes</th>
+		<td>[% instance.supportedUsageClasses %]</td>
+	</tr>
+	<tr>
+		<th>Supported Virtualization Types</th>
+		<td>[% instance.supportedVirtualizationTypes %]</td>
+	</tr>
+	<tr>
+		<th>Hypervisor</th>
+		<td>[% instance.hypervisor %]</td>
+	</tr>
+	<tr>
+		<th>CPU Manufacturer</th>
+		<td>[% instance.processorManufacturer %]</td>
+	</tr>
+	<tr>
+		<th>CPU Platform</th>
+		<td>[% instance.processor %]</td>
+	</tr>
+	<tr>
+		<th>Architectures</th>
+		<td>[% instance.processorArchitectures %]</td>
+	</tr>
+	<tr>
+		<th>Clock Speed</th>
+		[% IF instance.processorClockSpeedInGhz %]<td class="ghz">[% instance.processorClockSpeedInGhz %]</td>[% ELSE %]<td class="text-muted">?</td>[% END %]
+	</tr>
+	<tr>
+		<th>vCPUs</th>
+		<td>[% instance.vCpus %]</td>
+	</tr>
+	<tr>
+		<th>Cores</th>
+		<td>[% instance.vCpuCores %]</td>
+	</tr>
+	<tr>
+		<th>Threads per Core</th>
+		<td>[% instance.vCpuThreadsPerCore %]</td>
+	</tr>
+	<tr>
+		<th>Burstable Performance Supported</th>
+		<td>[% booleanYesNo(instance.burstablePerformanceSupported) %]</td>
+	</tr>
+	<tr>
+		<th>Memory Size</th>
+		[% IF instance.memorySizeInGiB %]<td class="gb">[% instance.memorySizeInGiB %]</td>[% ELSE %]<td class="text-muted">?</td>[% END %]
+	</tr>
+	<tr>
+		<th>Network Performance</th>
+		<td>[% instance.networkPerformance %]</td>
+	</tr>
+	<tr>
+		<th>Maximum Network Interfaces</th>
+		<td>[% instance.maxNetworkInterfaces %]</td>
+	</tr>
+	<tr>
+		<th>Maximum Network Cards</th>
+		<td>[% instance.maxNetworkCards %]</td>
+	</tr>
+	<tr>
+		<th>IPv4 Addresses per Interface</th>
+		<td>[% instance.ipv4AddrPerInterface %]</td>
+	</tr>
+	<tr>
+		<th>IPv6 Addresses per Interface</th>
+		<td>[% instance.ipv6AddrPerInterface %]</td>
+	</tr>
+	<tr>
+		<th>IPv6 Supported</th>
+		<td>[% booleanYesNo(instance.ipv6Supported) %]</td>
+	</tr>
+	<tr>
+		<th>Elastic Network Adapter (ENA) Supported</th>
+		<td>[% instance.enaSupport %]</td>
+	</tr>
+	<tr>
+		<th>ENA Express powered by AWS Scalable Reliable Datagram (SRD) Supported</th>
+		<td>[% booleanYesNo(instance.enaSrdSupported) %]</td>
+	</tr>
+	<tr>
+		<th>Elastic Fabric Adapter (EFA) Supported</th>
+		<td>[% booleanYesNo(instance.efaSupported) %]</td>
+	</tr>
+	<tr>
+		<th>Network Encryption in Transit Supported</th>
+		<td>[% booleanYesNo(instance.encryptionInTransitSupported) %]</td>
+	</tr>
+	<tr>
+		<th>Storage</th>
+		<td>[% instance.storage %]</td>
+	</tr>
+	<tr>
+		<th>Supported Root Device Types</th>
+		<td>[% instance.supportedRootDeviceTypes %]</td>
+	</tr>
+	<tr>
+		<th>Instance Store Supported</th>
+		<td>[% booleanYesNo(instance.storageSupported) %]</td>
+	</tr>
+	<tr>
+		<th>Instance Store Total Size</th>
+		[% IF instance.storageTotalSizeInGB %]<td class="gb">[% instance.storageTotalSizeInGB %]</td>[% ELSE %]<td class="text-muted">-</td>[% END %]
+	</tr>
+	<tr>
+		<th>Instance Store NVME Support</th>
+		[% IF instance.storageNvmeSupport %]<td>[% instance.storageNvmeSupport %]</td>[% ELSE %]<td>no</td>[% END %]
+	</tr>
+	<tr>
+		<th>Instance Store Encryption Support</th>
+		[% IF instance.storageEncryptionSupport %]<td>[% instance.storageEncryptionSupport %]</td>[% ELSE %]<td>no</td>[% END %]
+	</tr>
+	<tr>
+		<th>EBS Optimized Support</th>
+		<td>[% instance.ebsOptimizedSupport %]</td>
+	</tr>
+	<tr>
+		<th>EBS Optimized Baseline Bandwidth in Mbps</th>
+		[% IF instance.ebsOptimizedBaselineBandwidthInMbps %]<td class="mbitps">[% instance.ebsOptimizedBaselineBandwidthInMbps %]</td>[% ELSE %]<td class="text-muted">-</td>[% END %]
+	</tr>
+		<tr>
+		<th>EBS Optimized Maximum Bandwidth in Mbps</th>
+		[% IF instance.ebsOptimizedMaxBandwidthInMbps %]<td class="mbitps">[% instance.ebsOptimizedMaxBandwidthInMbps %]</td>[% ELSE %]<td class="text-muted">-</td>[% END %]
+	</tr>
+	<tr>
+		<th>EBS Optimized Baseline Throughput in MBps</th>
+		[% IF instance.ebsOptimizedBaselineThroughputInMBps %]<td class="mbyteps">[% instance.ebsOptimizedBaselineThroughputInMBps %]</td>[% ELSE %]<td class="text-muted">-</td>[% END %]
+	</tr>
+		<tr>
+		<th>EBS Optimized Maximum Throughput in MBps</th>
+		[% IF instance.ebsOptimizedMaxThroughputInMBps %]<td class="mbyteps">[% instance.ebsOptimizedMaxThroughputInMBps %]</td>[% ELSE %]<td class="text-muted">-</td>[% END %]
+	</tr>
+	<tr>
+		<th>EBS Optimized Baseline IOPS</th>
+		[% IF instance.ebsOptimizedBaselineIops %]<td>[% instance.ebsOptimizedBaselineIops %]</td>[% ELSE %]<td class="text-muted">-</td>[% END %]
+	</tr>
+	<tr>
+		<th>EBS Optimized Maximum IOPS</th>
+		[% IF instance.ebsOptimizedMaxIops %]<td>[% instance.ebsOptimizedMaxIops %]</td>[% ELSE %]<td class="text-muted">-</td>[% END %]
+	</tr>
+	<tr>
+		<th>EBS Encryption Support</th>
+		[% IF instance.ebsEncryptionSupport %]<td>[% instance.ebsEncryptionSupport %]</td>[% ELSE %]<td>no</td>[% END %]
+	</tr>
+	<tr>
+		<th>EBS NVME Support</th>
+		[% IF instance.ebsNvmeSupport %]<td>[% instance.ebsNvmeSupport %]</td>[% ELSE %]<td>no</td>[% END %]
+	</tr>
+	<tr>
+		<th>GPU Manufacturer</th>
+		[% IF instance.gpuManufacturer %]<td>[% instance.gpuManufacturer %]</td>[% ELSE %]<td class="text-muted">-</td>[% END %]
+	</tr>
+	<tr>
+		<th>GPU Name</th>
+		[% IF instance.gpuName %]<td>[% instance.gpuName %]</td>[% ELSE %]<td class="text-muted">-</td>[% END %]
+	</tr>
+	<tr>
+		<th>GPUs</th>
+		[% IF instance.gpuCount %]<td>[% instance.gpuCount %]</td>[% ELSE %]<td class="text-muted">-</td>[% END %]
+	</tr>
+	<tr>
+		<th>GPU Total Memory</th>
+		[% IF instance.gpuTotalGpuMemoryInGiB %]<td class="gb">[% instance.gpuTotalGpuMemoryInGiB %]</td>[% ELSE %]<td class="text-muted">-</td>[% END %]
+	</tr>
+	<tr>
+		<th>Placement Group Supported Strategies</th>
+		<td>[% instance.placementGroupSupportedStrategies %]</td>
+	</tr>
+	<tr>
+		<th>Hibernation Supported</th>
+		<td>[% booleanYesNo(instance.hibernationSupported) %]</td>
+	</tr>
+	<tr>
+		<th>Dedicated Hosts Supported</th>
+		<td>[% booleanYesNo(instance.dedicatedHostsSupported) %]</td>
+	</tr>
+	<tr>
+		<th>Auto Recovery Supported</th>
+		<td>[% booleanYesNo(instance.autoRecoverySupported) %]</td>
+	</tr>
+	<tr>
+		<th>Supported Boot Modes</th>
+		<td>[% instance.supportedBootModes %]</td>
+	</tr>
+	<tr>
+		<th>Nitro Enclaves Support</th>
+		<td>[% instance.nitroEnclavesSupport %]</td>
+	</tr>
+	<tr>
+		<th>Nitro TPM Support</th>
+		<td>
+			[% instance.nitroTpmSupport %]
+			[% IF instance.nitroTpmSupportedVersions%]([% instance.nitroTpmSupportedVersions %])[% END %]
+		</td>
+	</tr>
+	<tr>
+		<th>SAP Supported</th>
+		<td>[% booleanYesNo(instance.sapSupported) %]</td>
+	</tr>
+	<tr>
+		<th>SAP HANA Supported</th>
+		<td>[% booleanYesNo(instance.sapHanaSupported) %]</td>
+	</tr>
+	<tr>
+		<th>SAP Standard Benchmark (SAPS)</th>
+		[% IF instance.sapSaps %]<td>[% instance.sapSaps %]</td>
+		[% ELSE %]<td class="text-muted">-</td>[% END %]
+	</tr>
+</table>
+</div><!-- table-responsive -->
+
+</div> <!-- // col -->
+<div class="col-xxl-6">
+
+<h2>Costs (Pricing) for [% instance.instanceType %]</h2>
+<p>Cost and pricing across all AWS locations for Amazon Elastic Compute Cloud (EC2) instance type <code>[% instance.instanceType %]</code> with free operating system.</p>
+
+<h3>Price per Hour</h3>
+<div class="table-responsive">
+<table class="table table-hover table-striped table-bordered">
+<thead>
+	<tr>
+		<th scope="col"></th>
+		<th scope="col" title="Lowest price across all locations">Min.</th>
+		<th scope="col" title="Average price across all locations">Avg.</th>
+		<th scope="col" title="Highest price across all locations">Max.</th>
+	</tr>
+</thead>
+<tbody>
+	<tr>
+		<th>On-Demand</th>
+		[% IF instance.minOnDemandLinuxHr %]<td class="usd">[% instance.minOnDemandLinuxHr %]</td>[% ELSE %]<td class="text-muted">N/A</td>[% END %]
+		[% IF instance.avgOnDemandLinuxHr %]<td class="usd">[% instance.avgOnDemandLinuxHr %]</td>[% ELSE %]<td class="text-muted">N/A</td>[% END %]
+		[% IF instance.maxOnDemandLinuxHr %]<td class="usd">[% instance.maxOnDemandLinuxHr %]</td>[% ELSE %]<td class="text-muted">N/A</td>[% END %]
+	</tr>
+	<tr>
+		<th>Spot Instance</th>
+		[% IF instance.minSpotLinuxHr %]<td class="usd">[% instance.minSpotLinuxHr %]</td>[% ELSE %]<td class="text-muted">N/A</td>[% END %]
+		[% IF instance.avgSpotLinuxHr %]<td class="usd">[% instance.avgSpotLinuxHr %]</td>[% ELSE %]<td class="text-muted">N/A</td>[% END %]
+		[% IF instance.maxSpotLinuxHr %]<td class="usd">[% instance.maxSpotLinuxHr %]</td>[% ELSE %]<td class="text-muted">N/A</td>[% END %]
+	</tr>
+</tbody>
+</table>
+</div> <!-- // table-responsive -->
+
+<h3>Price per Month</h3>
+<div class="table-responsive">
+<table class="table table-hover table-striped table-bordered">
+<thead>
+	<tr>
+		<th scope="col"></th>
+		<th scope="col" title="Lowest price across all locations">Min.</th>
+		<th scope="col" title="Average price across all locations">Avg.</th>
+		<th scope="col" title="Highest price across all locations">Max.</th>
+	</tr>
+</thead>
+<tbody>
+	<tr>
+		<th>On-Demand Instance</th>
+		[% IF instance.minOnDemandLinuxMonth %]<td class="usd">[% instance.minOnDemandLinuxMonth %]</td>[% ELSE %]<td class="text-muted">N/A</td>[% END %]
+		[% IF instance.avgOnDemandLinuxMonth %]<td class="usd">[% instance.avgOnDemandLinuxMonth %]</td>[% ELSE %]<td class="text-muted">N/A</td>[% END %]
+		[% IF instance.maxOnDemandLinuxMonth %]<td class="usd">[% instance.maxOnDemandLinuxMonth %]</td>[% ELSE %]<td class="text-muted">N/A</td>[% END %]
+	</tr>
+	<tr>
+		<th>Spot Instance</th>
+		[% IF instance.minSpotLinuxMonth %]<td class="usd">[% instance.minSpotLinuxMonth %]</td>[% ELSE %]<td class="text-muted">N/A</td>[% END %]
+		[% IF instance.avgSpotLinuxMonth %]<td class="usd">[% instance.avgSpotLinuxMonth %]</td>[% ELSE %]<td class="text-muted">N/A</td>[% END %]
+		[% IF instance.maxSpotLinuxMonth %]<td class="usd">[% instance.maxSpotLinuxMonth %]</td>[% ELSE %]<td class="text-muted">N/A</td>[% END %]
+	</tr>
+	<!-- Reserved Instance -->
+	<tr>
+		<th>Reserved Instance one-year term no upfront</th>
+		[% IF instance.minReserved1yNoUpfrontLinuxMonth %]<td class="usd">[% instance.minReserved1yNoUpfrontLinuxMonth %]</td>[% ELSE %]<td class="text-muted">N/A</td>[% END %]
+		[% IF instance.avgReserved1yNoUpfrontLinuxMonth %]<td class="usd">[% instance.avgReserved1yNoUpfrontLinuxMonth %]</td>[% ELSE %]<td class="text-muted">N/A</td>[% END %]
+		[% IF instance.maxReserved1yNoUpfrontLinuxMonth %]<td class="usd">[% instance.maxReserved1yNoUpfrontLinuxMonth %]</td>[% ELSE %]<td class="text-muted">N/A</td>[% END %]
+	</tr>
+	<tr>
+		<th>Reserved Instance one-year term partial upfront</th>
+		[% IF instance.minReserved1yPartialUpfrontLinuxMonth %]<td class="usd">[% instance.minReserved1yPartialUpfrontLinuxMonth %]</td>[% ELSE %]<td class="text-muted">N/A</td>[% END %]
+		[% IF instance.avgReserved1yPartialUpfrontLinuxMonth %]<td class="usd">[% instance.avgReserved1yPartialUpfrontLinuxMonth %]</td>[% ELSE %]<td class="text-muted">N/A</td>[% END %]
+		[% IF instance.maxReserved1yPartialUpfrontLinuxMonth %]<td class="usd">[% instance.maxReserved1yPartialUpfrontLinuxMonth %]</td>[% ELSE %]<td class="text-muted">N/A</td>[% END %]
+	</tr>
+	<tr>
+		<th>Reserved Instance one-year term all upfront</th>
+		[% IF instance.minReserved1yAllUpfrontLinuxMonth %]<td class="usd">[% instance.minReserved1yAllUpfrontLinuxMonth %]</td>[% ELSE %]<td class="text-muted">N/A</td>[% END %]
+		[% IF instance.avgReserved1yAllUpfrontLinuxMonth %]<td class="usd">[% instance.avgReserved1yAllUpfrontLinuxMonth %]</td>[% ELSE %]<td class="text-muted">N/A</td>[% END %]
+		[% IF instance.maxReserved1yAllUpfrontLinuxMonth %]<td class="usd">[% instance.maxReserved1yAllUpfrontLinuxMonth %]</td>[% ELSE %]<td class="text-muted">N/A</td>[% END %]
+	</tr>
+	<tr>
+		<th>Reserved Instance three-year term no upfront</th>
+		[% IF instance.minReserved3yNoUpfrontLinuxMonth %]<td class="usd">[% instance.minReserved3yNoUpfrontLinuxMonth %]</td>[% ELSE %]<td class="text-muted">N/A</td>[% END %]
+		[% IF instance.avgReserved3yNoUpfrontLinuxMonth %]<td class="usd">[% instance.avgReserved3yNoUpfrontLinuxMonth %]</td>[% ELSE %]<td class="text-muted">N/A</td>[% END %]
+		[% IF instance.maxReserved3yNoUpfrontLinuxMonth %]<td class="usd">[% instance.maxReserved3yNoUpfrontLinuxMonth %]</td>[% ELSE %]<td class="text-muted">N/A</td>[% END %]
+	</tr>
+	<tr>
+		<th>Reserved Instance three-year term partial upfront</th>
+		[% IF instance.minReserved3yPartialUpfrontLinuxMonth %]<td class="usd">[% instance.minReserved3yPartialUpfrontLinuxMonth %]</td>[% ELSE %]<td class="text-muted">N/A</td>[% END %]
+		[% IF instance.avgReserved3yPartialUpfrontLinuxMonth %]<td class="usd">[% instance.avgReserved3yPartialUpfrontLinuxMonth %]</td>[% ELSE %]<td class="text-muted">N/A</td>[% END %]
+		[% IF instance.maxReserved3yPartialUpfrontLinuxMonth %]<td class="usd">[% instance.maxReserved3yPartialUpfrontLinuxMonth %]</td>[% ELSE %]<td class="text-muted">N/A</td>[% END %]
+	</tr>
+	<tr>
+		<th>Reserved Instance three-year term all upfront</th>
+		[% IF instance.minReserved3yAllUpfrontLinuxMonth %]<td class="usd">[% instance.minReserved3yAllUpfrontLinuxMonth %]</td>[% ELSE %]<td class="text-muted">N/A</td>[% END %]
+		[% IF instance.avgReserved3yAllUpfrontLinuxMonth %]<td class="usd">[% instance.avgReserved3yAllUpfrontLinuxMonth %]</td>[% ELSE %]<td class="text-muted">N/A</td>[% END %]
+		[% IF instance.maxReserved3yAllUpfrontLinuxMonth %]<td class="usd">[% instance.maxReserved3yAllUpfrontLinuxMonth %]</td>[% ELSE %]<td class="text-muted">N/A</td>[% END %]
+	</tr>
+	<!-- Convertible Reserved Instance -->
+	<tr>
+		<th>Convertible Reserved Instance one-year term no upfront</th>
+		[% IF instance.minConvertible1yNoUpfrontLinuxMonth %]<td class="usd">[% instance.minConvertible1yNoUpfrontLinuxMonth %]</td>[% ELSE %]<td class="text-muted">N/A</td>[% END %]
+		[% IF instance.avgConvertible1yNoUpfrontLinuxMonth %]<td class="usd">[% instance.avgConvertible1yNoUpfrontLinuxMonth %]</td>[% ELSE %]<td class="text-muted">N/A</td>[% END %]
+		[% IF instance.maxConvertible1yNoUpfrontLinuxMonth %]<td class="usd">[% instance.maxConvertible1yNoUpfrontLinuxMonth %]</td>[% ELSE %]<td class="text-muted">N/A</td>[% END %]
+	</tr>
+	<tr>
+		<th>Convertible Reserved Instance one-year term partial upfront</th>
+		[% IF instance.minConvertible1yPartialUpfrontLinuxMonth %]<td class="usd">[% instance.minConvertible1yPartialUpfrontLinuxMonth %]</td>[% ELSE %]<td class="text-muted">N/A</td>[% END %]
+		[% IF instance.avgConvertible1yPartialUpfrontLinuxMonth %]<td class="usd">[% instance.avgConvertible1yPartialUpfrontLinuxMonth %]</td>[% ELSE %]<td class="text-muted">N/A</td>[% END %]
+		[% IF instance.maxConvertible1yPartialUpfrontLinuxMonth %]<td class="usd">[% instance.maxConvertible1yPartialUpfrontLinuxMonth %]</td>[% ELSE %]<td class="text-muted">N/A</td>[% END %]
+	</tr>
+	<tr>
+		<th>Convertible Reserved Instance one-year term all upfront</th>
+		[% IF instance.minConvertible1yAllUpfrontLinuxMonth %]<td class="usd">[% instance.minConvertible1yAllUpfrontLinuxMonth %]</td>[% ELSE %]<td class="text-muted">N/A</td>[% END %]
+		[% IF instance.avgConvertible1yAllUpfrontLinuxMonth %]<td class="usd">[% instance.avgConvertible1yAllUpfrontLinuxMonth %]</td>[% ELSE %]<td class="text-muted">N/A</td>[% END %]
+		[% IF instance.maxConvertible1yAllUpfrontLinuxMonth %]<td class="usd">[% instance.maxConvertible1yAllUpfrontLinuxMonth %]</td>[% ELSE %]<td class="text-muted">N/A</td>[% END %]
+	</tr>
+	<tr>
+		<th>Convertible Reserved Instance three-year term no upfront</th>
+		[% IF instance.minConvertible3yNoUpfrontLinuxMonth %]<td class="usd">[% instance.minConvertible3yNoUpfrontLinuxMonth %]</td>[% ELSE %]<td class="text-muted">N/A</td>[% END %]
+		[% IF instance.avgConvertible3yNoUpfrontLinuxMonth %]<td class="usd">[% instance.avgConvertible3yNoUpfrontLinuxMonth %]</td>[% ELSE %]<td class="text-muted">N/A</td>[% END %]
+		[% IF instance.maxConvertible3yNoUpfrontLinuxMonth %]<td class="usd">[% instance.maxConvertible3yNoUpfrontLinuxMonth %]</td>[% ELSE %]<td class="text-muted">N/A</td>[% END %]
+	</tr>
+	<tr>
+		<th>Convertible Reserved Instance three-year term partial upfront</th>
+		[% IF instance.minConvertible3yPartialUpfrontLinuxMonth %]<td class="usd">[% instance.minConvertible3yPartialUpfrontLinuxMonth %]</td>[% ELSE %]<td class="text-muted">N/A</td>[% END %]
+		[% IF instance.avgConvertible3yPartialUpfrontLinuxMonth %]<td class="usd">[% instance.avgConvertible3yPartialUpfrontLinuxMonth %]</td>[% ELSE %]<td class="text-muted">N/A</td>[% END %]
+		[% IF instance.maxConvertible3yPartialUpfrontLinuxMonth %]<td class="usd">[% instance.maxConvertible3yPartialUpfrontLinuxMonth %]</td>[% ELSE %]<td class="text-muted">N/A</td>[% END %]
+	</tr>
+	<tr>
+		<th>Convertible Reserved Instance three-year term all upfront</th>
+		[% IF instance.minConvertible3yAllUpfrontLinuxMonth %]<td class="usd">[% instance.minConvertible3yAllUpfrontLinuxMonth %]</td>[% ELSE %]<td class="text-muted">N/A</td>[% END %]
+		[% IF instance.avgConvertible3yAllUpfrontLinuxMonth %]<td class="usd">[% instance.avgConvertible3yAllUpfrontLinuxMonth %]</td>[% ELSE %]<td class="text-muted">N/A</td>[% END %]
+		[% IF instance.maxConvertible3yAllUpfrontLinuxMonth %]<td class="usd">[% instance.maxConvertible3yAllUpfrontLinuxMonth %]</td>[% ELSE %]<td class="text-muted">N/A</td>[% END %]
+	</tr>
+</tbody>
+</table>
+</div> <!-- // table-responsive -->
+
+</div> <!-- // col -->
+</div> <!-- // row -->
+
+
+<h3 id="locations">Price per Location</h3>
+<p>
+Costs and pricing for Amazon Elastic Compute Cloud (EC2) instance type <code>[% instance.instanceType %]</code> in AWS locations in which the instance type is available.
+</p>
+<div class="table-responsive">
+<table
+	class="table table-sm table-hover table-striped table-bordered"
+	data-classes="table table-sm table-hover table-striped table-bordered"
+	data-toggle="table"
+	data-sort-name="hour"
+	data-sort-order="asc"
+	data-sortable="true"
+	data-sticky-header="true"
+>
+<thead>
+<tr>
+	<th scope="col" colspan="4">Location</th>
+	<th scope="col" colspan="2">Costs per Hour</th>
+	<th scope="col" colspan="6">Costs per Month</th>
+</tr>
+<tr>
+	<th scope="col" data-sortable="true">Code</th>
+	<th scope="col" data-sortable="true">Name</th>
+	<th scope="col" data-sortable="true">Continent</th>
+	<th scope="col" data-sortable="true">Type</th>
+	<!-- Costs -->
+	<th scope="col" title="On-Demand Instance" data-sortable="true" data-field="hour">On-Demand</th>
+	<th scope="col" title="Spot Instance" data-sortable="true">Spot</th>
+	<th scope="col" title="On-Demand Instance" data-sortable="true">On-Demand</th>
+	<th scope="col" title="Spot Instance" data-sortable="true">Spot</th>
+	<th scope="col" title="Standard Reserved Instance (RI), 1 year, no upfront"       data-sortable="true">1Y RI (No)</th>
+	<th scope="col" title="Standard Reserved Instance (RI), 1 year, all upfront"      data-sortable="true">1Y RI (All)</th>
+	<th scope="col" title="Standard Reserved Instance (RI), 3 years, no upfront"      data-sortable="true">3Y RI (No)</th>
+	<th scope="col" title="Standard Reserved Instance (RI), 3 years, all upfront"     data-sortable="true">3Y RI (All)</th>
+</tr>
+</thead>
+<tbody>
+[%- FOREACH location IN instanceLocations -%]
+<tr>
+<td><a href="/[% location.location %].html" title="AWS location '[% location.location %]' [% location.locationName %]"><code>[% location.location %]</code></a></td>
+<td>[% location.locationName %]</td>
+<td>[% location.locationContinent %]</td>
+<td>[% location.locationType.remove('AWS ') %]</td>
+<!-- Costs / Hour -->
+[% IF location.onDemandLinuxHr %]<td class="usd">[% location.onDemandLinuxHr %]</td>
+[% ELSE %]<td class="text-muted">N/A</td>[% END %]
+[% IF location.spotLinuxHr %]<td class="usd">[% location.spotLinuxHr %]</td>[% ELSE %]<td class="text-muted">N/A</td>[% END %]
+<!-- Costs / Month -->
+[% IF location.onDemandLinuxMonth %]<td class="usd">[% location.onDemandLinuxMonth %]</td>
+[% ELSE %]<td class="text-muted">N/A</td>[% END %]
+[% IF location.spotLinuxMonth %]<td class="usd">[% location.spotLinuxMonth %]</td>[% ELSE %]<td class="text-muted">N/A</td>[% END %]
+<!-- Costs / RI / Month -->
+[% IF    location.reserved1yNoUpfrontLinuxMonth  %]<td class="usd">[% location.reserved1yNoUpfrontLinuxMonth %]</td>
+[% ELSE %]<td class="text-muted">N/A</td>[% END %]
+[% IF    location.reserved1yAllUpfrontLinuxMonth %]<td class="usd">[% location.reserved1yAllUpfrontLinuxMonth %]</td>
+[% ELSE %]<td class="text-muted">N/A</td>[% END %]
+[% IF    location.reserved3yNoUpfrontLinuxMonth  %]<td class="usd">[% location.reserved3yNoUpfrontLinuxMonth %]</td>
+[% ELSE %]<td class="text-muted">N/A</td>[% END %]
+[% IF    location.reserved3yAllUpfrontLinuxMonth %]<td class="usd">[% location.reserved3yAllUpfrontLinuxMonth %]</td>
+[% ELSE %]<td class="text-muted">N/A</td>[% END %]
+</tr>
+[%- END -%]
+</tbody>
+</table>
+</div><!-- table-responsive -->
+
+[% PROCESS include_footer.tt2 %]

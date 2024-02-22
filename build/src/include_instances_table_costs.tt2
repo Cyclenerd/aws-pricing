@@ -1,0 +1,17 @@
+<!-- Costs / Hour -->
+[% IF instance.avgOnDemandLinuxHr %]<td class="usd">[% instance.avgOnDemandLinuxHr %]</td>
+[% ELSE %]<td class="text-muted">N/A</td>[% END %]
+[% IF instance.avgSpotLinuxHr %]<td class="usd">[% instance.avgSpotLinuxHr %]</td>[% ELSE %]<td class="text-muted">N/A</td>[% END %]
+<!-- Costs / Month -->
+[% IF instance.avgOnDemandLinuxMonth %]<td class="usd">[% instance.avgOnDemandLinuxMonth %]</td>
+[% ELSE %]<td class="text-muted">N/A</td>[% END %]
+[% IF instance.avgSpotLinuxMonth %]<td class="usd">[% instance.avgSpotLinuxMonth %]</td>[% ELSE %]<td class="text-muted">N/A</td>[% END %]
+<!-- Costs / RI / Month -->
+[% IF    instance.avgReserved1yNoUpfrontLinuxMonth  %]<td class="usd">[% instance.avgReserved1yNoUpfrontLinuxMonth %]</td>
+[% ELSE %]<td class="text-muted">N/A</td>[% END %]
+[% IF    instance.avgReserved1yAllUpfrontLinuxMonth %]<td class="usd">[% instance.avgReserved1yAllUpfrontLinuxMonth %]</td>
+[% ELSE %]<td class="text-muted">N/A</td>[% END %]
+[% IF    instance.avgReserved3yNoUpfrontLinuxMonth  %]<td class="usd">[% instance.avgReserved3yNoUpfrontLinuxMonth %]</td>
+[% ELSE %]<td class="text-muted">N/A</td>[% END %]
+[% IF    instance.avgReserved3yAllUpfrontLinuxMonth %]<td class="usd">[% instance.avgReserved3yAllUpfrontLinuxMonth %]</td>
+[% ELSE %]<td class="text-muted">N/A</td>[% END %]

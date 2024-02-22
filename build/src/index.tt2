@@ -1,0 +1,137 @@
+[%-
+	url = '/';
+	title = 'Amazon EC2 Instance Type Comparison';
+	description = 'Choose the right Amazon Elastic Compute Cloud (EC2) instance type available across all AWS locations. Compare different CPU/memory combinations.';
+-%]
+[%- PROCESS include_header.tt2 -%]
+
+<h1>Amazon EC2 Instance Type Comparison</h1>
+
+<p>
+Struggling to choose the right Amazon Elastic Compute Cloud (EC2) instance for your unique needs?
+This webapp consolidates data from across the Amazon Web Services (AWS) universe to create a powerful recommendation engine,
+to ensure you have the perfect instance no matter where you deploy.
+</p>
+
+<div class="p-5 mb-4 rounded-3 border border-light-subtle">
+<figure>
+	<blockquote class="blockquote">
+		<p>
+			Frustrated with navigating AWS docs or third-party websites that want to sell you something? Same!
+			That's why I built this one-stop resource,
+			condensing all the crucial info for choosing the perfect Amazon EC2 instance type.
+			Save time and ditch the doc-hopping - find your ideal VM right here!
+		</p>
+	</blockquote>
+	<figcaption class="blockquote-footer"><a href="https://github.com/Cyclenerd">Nils</a></figcaption>
+</figure>
+</div>
+
+<h2>Instance Types</h2>
+
+<p>
+Explore <a href="/instances.html">[% instances.size %] Amazon Elastic Compute Cloud (EC2) instance types</a> at a glance!
+Compare average costs across AWS locations and filter by CPU options
+(<a href="/intel.html">Intel</a>,
+<a href="/amd.html">AMD</a>,
+<a href="/aws-graviton.html">AWS Graviton</a>,
+<a href="/apple-silicon.html">Apple Silicon</a>).
+Find the perfect fit for your SAP applications with certified instance types for both <a href="/sap.html">SAP AS ABAP</a> and <a href="/sap-hana.html">SAP HANA</a> deployments.
+Start optimizing your cloud costs today!
+</p>
+
+<h2>Locations</h2>
+
+[%
+total_public_ip_addr = 0;
+FOREACH location IN locations;
+	IF location.publicIpv4Addr; total_public_ip_addr = total_public_ip_addr + location.publicIpv4Addr; END;
+END;
+%]
+
+
+<p>
+Explore the entire global <a href="/locations.html">AWS locations</a> at your fingertips!
+Get a comprehensive overview of all AWS
+<a href="/regions.html">regions</a>,
+<a href="/local-zones.html">local zones</a>,
+<a href="/wavelength-zones.html">wavelength zones</a>, and discover:
+</p>
+
+<ul>
+<li>[% total_public_ip_addr / 1000000 FILTER format("%d") %] million public IPv4 addresses: Find the perfect location for your cloud infrastructure.</li>
+<li>Extensive instance type selection: Filter by CPU type and instance family to choose the ideal AWS EC2 option.</li>
+<li>Clear cost comparisons: Optimize your budget with transparent pricing for Amazon EC2 and Amazon Elastic Block Store (EBS) volumes across regions.</li>
+</ul>
+
+<h2>Instance Picker</h2>
+
+<p>
+Ditch the guesswork for your Amazon EC2 setup!
+This powerful <a href="/picker.html">Instance Picker</a> empowers you to compare all possible Amazon EC2 instance types and AWS locations/regions with granular filters and sorting.
+Optimize your cloud costs, maximize performance, and find the perfect match for your workload.
+Start by filtering by AWS location (e.g., <code>eu-central-1</code>) and explore!
+</p>
+
+<h3>Filter</h3>
+
+<p>
+Take control of your search!
+Every field in the <a href="/picker.html">Instance Picker</a> is filterable and sortable,
+allowing you to quickly find the Amazon EC2 instance type that perfectly fits your needs.
+</p>
+
+<div class="row">
+	<div class="col-xl-6">
+		<p>
+			🧑‍💻
+			Show me all Amazon EC2 instances in the Frankfurt (<code>eu-central-1</code>) region with a CPU clock speed faster than <code>3.5 GHz</code>.
+			<img src="/img/filter.png?[% timestamp %]" alt="Screenshot: Filter" class="img-fluid rounded">
+		</p>
+	</div>
+	<div class="col-xl-6">
+		<p>
+			👩‍💻
+			I'm looking for Amazon EC2 instances in Frankfurt (<code>eu-central-1</code>) more than <code>30 GB</code> but less than <code>60 GB</code> memory.
+			<img src="/img/combine-filter.png?[% timestamp %]" alt="Screenshot: Filter combined" class="img-fluid rounded">
+		</p>
+	</div>
+</div>
+
+<h3>Keyboard shortcuts</h3>
+
+<p>Master the <a href="/picker.html">Instance Picker</a> with your ⌨️ keyboard!</p>
+
+<p>Focus and navigation:</p>
+
+<ul>
+<li>Jump to the vCPU filter: <kbd>Ctrl</kbd> + <kbd>/</kbd></li>
+<li>Move around the table: Use arrow keys (<kbd>←</kbd> <kbd>↑</kbd> <kbd>→</kbd> <kbd>↓</kbd>)</li>
+<li>Tab across cells: <kbd>Tab</kbd> will move the focus horizontally, <kbd>Shift</kbd> + <kbd>Tab</kbd> will move the focus horizontal backward
+<li>Select/deselect rows: <kbd>Space</kbd> key toggles selection for a row</li>
+</ul>
+
+<p>Copying data:</p>
+
+<ul>
+<li>Copy selected rows (visible columns): <kbd>Ctrl</kbd> + <kbd>c</kbd></li>
+<li>Copy selected rows (all columns): <kbd>Ctrl</kbd> + <kbd>x</kbd></li>
+</ul>
+
+<p>Advanced options:</p>
+
+<ul>
+<li>Sort columns: Press <kbd>Enter</kbd> on a column header</li>
+<li>Access header menu: <kbd>Ctrl</kbd> + <kbd>Enter</kbd> on a column header</li>
+<li>Close menu and return to header: <kbd>Esc</kbd></li>
+</ul>
+
+<p>Benefits:</p>
+
+<ul>
+<li>Speed up your workflow: Navigate and interact with the Instance Picker efficiently.</li>
+<li>Accessibility: Keyboard navigation provides an alternative to mouse control.</li>
+<li>Increased efficiency: Copy and sort data without leaving the keyboard.</li>
+</ul>
+
+[% PROCESS include_footer.tt2 %]

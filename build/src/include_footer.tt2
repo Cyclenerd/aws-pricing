@@ -1,0 +1,26 @@
+</main>
+<footer class="footer py-3 mt-2 text-muted">
+<p>
+	Copyright [% USE date; date.format(date.now, '%Y'); %] <a href="https://www.nkn-it.de/">Nils Knieling</a>
+	·
+	All rights reserved
+</p>
+<p>
+	The accuracy of the data is not guaranteed. Please <a href="[% site.github.issues %]">report issues</a> you see.
+	Portions of this webapp are modifications based on work created and shared by <a href="https://aws.amazon.com/terms/">Amazon Web Services</a>
+	and used according to terms described in the <a href="https://creativecommons.org/licenses/by-sa/4.0/">Creative Commons 4.0 Attribution-ShareAlike License</a>.
+</p>
+<p>
+	Last Update: <a href=[% IF gitHubRunId %]"[% gitHubServerUrl %]/[% gitHubRepository %]/actions/runs/[% gitHubRunId %]"[% ELSE %]"#"[% END %]>[% gmtime %]</a> (GMT)
+	·
+	<a href="/imprint.html">Imprint</a>
+</p>
+</footer>
+</div> <!-- // container -->
+
+<script src="[% site.bootstrap.js %]"></script>
+<script src="[% site.jQuery.js %]"></script>
+<script src="[% site.bootstrapTable.js %]"></script>
+<script src="[% site.bootstrapTableStickyHeader.js %]"></script>
+</body>
+</html>

@@ -1,0 +1,31 @@
+[%-
+site = {
+	title => 'Amazon Web Services Pricing',
+	url => 'https://aws-pricing.com',
+	github = {
+		repo   => 'https://github.com/Cyclenerd/aws-pricing',
+		issues => 'https://github.com/Cyclenerd/aws-pricing/issues',
+	},
+	agGrid = {
+		css   => 'https://cdn.jsdelivr.net/npm/ag-grid-community@31.0.3/styles/ag-grid.min.css'
+		theme  => 'https://cdn.jsdelivr.net/npm/ag-grid-community@31.0.3/styles/ag-theme-balham.min.css'
+		js     => 'https://cdn.jsdelivr.net/npm/ag-grid-community@31.0.3/dist/ag-grid-community.min.noStyle.js'
+	},
+	jQuery = {
+		js => 'https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.4/jquery.min.js'
+	},
+	bootstrap = {
+		css => 'https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.2/css/bootstrap.min.css'
+		js  => 'https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.2/js/bootstrap.bundle.min.js'
+	},
+	bootstrapTable = {
+		css => 'https://cdnjs.cloudflare.com/ajax/libs/bootstrap-table/1.21.2/bootstrap-table.min.css'
+		js  => 'https://cdnjs.cloudflare.com/ajax/libs/bootstrap-table/1.21.2/bootstrap-table.min.js'
+	},
+	bootstrapTableStickyHeader = {
+		css => 'https://cdnjs.cloudflare.com/ajax/libs/bootstrap-table/1.21.2/extensions/sticky-header/bootstrap-table-sticky-header.min.css'
+		js  => 'https://cdnjs.cloudflare.com/ajax/libs/bootstrap-table/1.21.2/extensions/sticky-header/bootstrap-table-sticky-header.min.js'
+	}
+};
+PROCESS include_macros.tt2;
+-%]

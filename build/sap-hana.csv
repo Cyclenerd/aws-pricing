@@ -1,0 +1,63 @@
+Instance family ,Instance type ,vCPU ,Memory (GiB) ,SAPS 
+r5 ,r5.metal ,96,768,143230
+r5 ,r5.24xlarge ,96,768,138770
+r5 ,r5.16xlarge ,64,512,92513
+r5 ,r5.12xlarge ,48,384,69385
+r5 ,r5.8xlarge ,32,256,46257
+r5b ,r5b.metal ,96,768,143230
+r5b ,r5b.24xlarge ,96,768,138770
+r5b ,r5b.16xlarge ,64,512,92513
+r5b ,r5b.12xlarge ,48,384,69385
+r5b ,r5b.8xlarge ,32,256,46257
+r6i ,r6i.32xlarge ,128,1024,196050
+r6i ,r6i.24xlarge ,96,768,147038
+r6i ,r6i.16xlarge ,64,512,98025
+r6i ,r6i.12xlarge ,48,384,73519
+r6i ,r6i.8xlarge ,32,256,49013
+r7i ,r7i.48xlarge ,192,1536,296200
+r7i ,r7i.24xlarge ,96,768,158250
+r7i ,r7i.16xlarge ,64,512,105500
+r7i ,r7i.12xlarge ,48,384,99720
+r7i ,r7i.8xlarge ,32,256,66480
+x1 ,x1.32xlarge ,128,1952,131500
+x1 ,x1.16xlarge ,64,976,65750
+x1e ,x1e.32xlarge ,128,3904,131500
+x2idn ,x2idn.32xlarge ,128,2048,196050
+x2idn ,x2idn.24xlarge ,96,1536,147038
+x2idn ,x2idn.16xlarge ,64,1024,98025
+x2iedn ,x2iedn.32xlarge ,128,4096,189000
+x2iedn ,x2iedn.24xlarge ,96,3072,141750
+High Memory ,u-24tb1.metal ,448,24576,517480
+High Memory ,u-24tb1.112xlarge ,448,24576,508720
+High Memory ,u-18tb1.metal ,448,18432,534130
+High Memory ,u-18tb1.112xlarge ,448,18432,520330
+High Memory ,u-12tb1.metal ,448,12288,480600
+High Memory ,u-12tb1.112xlarge ,448,12288,475500
+High Memory ,u-9tb1.metal ,448,9216,480600
+High Memory ,u-9tb1.112xlarge ,448,9216,475500
+High Memory ,u-6tb1.metal ,448,6144,480600
+High Memory ,u-6tb1.112xlarge ,448,6144,475500
+High Memory ,u-6tb1.56xlarge ,224,6144,380770
+High Memory ,u-3tb1.56xlarge ,224,3072,237750
+r5 ,r5.24xlarge ,96,768,138770
+r6i ,r6i.32xlarge ,128,1024,196050
+r6i ,r6i.24xlarge ,96,768,147038
+x1 ,x1.32xlarge ,128,1952,131500
+x1 ,x1.16xlarge ,64,976,65750
+x1e ,x1e.32xlarge ,128,3904,131500
+x2idn ,x2idn.16xlarge ,64,1024,98025
+x2idn ,x2idn.24xlarge ,96,1536,147038
+x2idn ,x2idn.32xlarge ,128,2048,196050
+x2iedn ,x2iedn.24xlarge ,96,3072,141750
+x2iedn ,x2iedn.32xlarge ,128,4096,189000
+High Memory ,u-12tb1.metal ,448,12288,480600
+High Memory ,u-12tb1.112xlarge ,448,12288,475500
+High Memory ,u-9tb1.112xlarge ,448,9216,475500
+High Memory ,u-6tb1.metal ,448,6144,480600
+High Memory ,u-6tb1.112xlarge ,448,6144,475500
+High Memory ,u-6tb1.56xlarge ,224,6144,380770
+r3 ,r3.8xlarge ,32,244,31920
+r3 ,r3.4xlarge ,16,122,15960
+r3 ,r3.2xlarge ,8,61,7980
+r4 ,r4.16xlarge ,64,488,76400
+r4 ,r4.8xlarge ,32,244,38200

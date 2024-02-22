@@ -1,0 +1,94 @@
+[%-
+	url = '/wavelength-zones.html';
+	title = 'Wavelength Zones - Amazon Web Services (AWS)';
+	description = 'List off all Amazon Web Services (AWS) wavelength zones. Overview of available Amazon Elastic Compute Cloud (EC2) instance types.';
+-%]
+[%- PROCESS include_header.tt2 -%]
+[%- PROCESS include_locations_header.tt2 -%]
+
+<h1>AWS Wavelength Zones</h1>
+
+<blockquote class="blockquote">
+<p>
+Amazon Web Services (AWS) offers <mark>[% wavelengthZones.size %] wavelength zones</mark> optimized for mobile edge (5G) computing applications.
+Amazon Elastic Compute Cloud (EC2) instance type availability varies across these wavelength zones.
+Pricing for Amazon EC2 instances can differ based on factors such as AWS wavelength zone and instance type.
+</p>
+</blockquote>
+
+<div class="table-responsive">
+<table
+	class="table table-sm table-hover table-bordered"
+	data-classes="table table-sm table-hover table-bordered"
+	data-toggle="table"
+	data-sort-name="name"
+	data-sort-order="asc"
+	data-sortable="true"
+	data-sticky-header="true"
+>
+<thead>
+	<tr>
+		<th scope="col" colspan="3">Location</th>
+		<th scope="col" colspan="5">Instance Family</th>
+		<th scope="col" colspan="3">Processor Manufacturer</th>
+		<th scope="col" title="Amazon Elastic Block Store Types" colspan="1">EBS</th>
+		<th scope="col" colspan="2">Costs (t3.medium)</th>
+	</tr>
+	<tr>
+		<th scope="col" data-field="name" data-sortable="true">Code</th>
+		<th scope="col" data-sortable="true">Name</th>
+		<th scope="col" data-sortable="true">Continent</th>
+		<!-- Instance Family -->
+		<th scope="col" title="General Purpose" data-sortable="true">General</th>
+		<th scope="col" title="Compute Optimized" data-sortable="true">Compute</th>
+		<th scope="col" title="Memory Optimized" data-sortable="true">Memory</th>
+		<th scope="col" title="Accelerated Computing" data-sortable="true">GPU</th>
+		<th scope="col" title="Storage Optimized" data-sortable="true">Storage</th>
+		<!-- Processor Manufacturer -->
+		<th scope="col" data-sortable="true">Intel</th>
+		<th scope="col" data-sortable="true">AMD</th>
+		<th scope="col" data-sortable="true">AWS</th>
+		<!-- Storage Type -->
+		<th scope="col" title="Amazon Elastic Block Store Types" data-sortable="true">#</th>
+		<!-- t3.medium -->
+		<th scope="col" class="currancy" data-sortable="true">Hour</th>
+		<th scope="col" class="currancy" data-sortable="true">Month</th>
+	</tr>
+</thead>
+<tbody>
+	[% FOREACH location IN wavelengthZones %]
+	<tr>
+		<td><a href="/[% location.location %].html" title="AWS location '[% location.location %]' [% location.locationName %]"><code>[% location.location %]</code></a></td>
+		<td>[% location.locationName %]</td>
+		<td>[% location.locationContinent %]</td>
+		<!-- Instance Family -->
+		[% IF location.instanceFamilyGeneralInLocationCount %]<td>[% location.instanceFamilyGeneralInLocationCount %]</td>[% ELSE %]<td class="text-muted">0</td>[% END %]
+		[% IF location.instanceFamilyComputeInLocationCount %]<td>[% location.instanceFamilyComputeInLocationCount %]</td>[% ELSE %]<td class="text-muted">0</td>[% END %]
+		[% IF location.instanceFamilyMemoryInLocationCount %]<td>[% location.instanceFamilyMemoryInLocationCount %]</td>[% ELSE %]<td class="text-muted">0</td>[% END %]
+		[% IF location.instanceFamilyGpuInLocationCount %]<td>[% location.instanceFamilyGpuInLocationCount %]</td>[% ELSE %]<td class="text-muted">0</td>[% END %]
+		[% IF location.instanceFamilyStorageInLocationCount %]<td>[% location.instanceFamilyStorageInLocationCount %]</td>[% ELSE %]<td class="text-muted">0</td>[% END %]
+		<!-- Processor Manufacturer -->
+		[% IF location.instanceTypesWithIntelCpuInLocationCount %]<td>[% location.instanceTypesWithIntelCpuInLocationCount %]</td>[% ELSE %]<td class="text-muted">0</td>[% END %]
+		[% IF location.instanceTypesWithAmdCpuInLocationCount %]<td>[% location.instanceTypesWithAmdCpuInLocationCount %]</td>[% ELSE %]<td class="text-muted">0</td>[% END %]
+		[% IF location.instanceTypesWithAwsCpuInLocationCount %]<td>[% location.instanceTypesWithAwsCpuInLocationCount %]</td>[% ELSE %]<td class="text-muted">0</td>[% END %]
+		<!-- Storage Types -->
+		[% IF location.storageTypesInLocationCount %]<td>[% location.storageTypesInLocationCount %]</td>[% ELSE %]<td class="text-muted">0</td>[% END %]
+		<!-- t3.medium -->
+		[% IF location.onDemandT3MediumLinuxHr > 0 %]
+		<td class="usd"
+		    title="Costs per hour for instance type 't3.medium' in location '[% location.location %]': [% location.onDemandT3MediumLinuxHr %] USD">
+			[% location.onDemandT3MediumLinuxHr %]
+		</td>
+		[% ELSE %]<td class="text-muted">N/A</td>[% END %]
+		[% IF location.onDemandT3MediumLinuxMonth > 0 %]
+		<td class="usd"
+		    title="Costs per month for instance type 't3.medium' in location [% location.location %]: [% location.onDemandT3MediumLinuxMonth %] USD">
+			[% location.onDemandT3MediumLinuxMonth %]
+		</td>
+		[% ELSE %]<td class="text-muted">N/A</td>[% END %]
+	</tr>
+	[% END %]
+</tbody>
+</table>
+</div><!-- table-responsive -->
+[% PROCESS include_footer.tt2 %]

@@ -1,0 +1,30 @@
+[%- MACRO badgeCpuManufactur(instance) BLOCK -%]
+[% IF instance.processorManufacturer == "Intel" %]<span class="badge text-bg-primary">Intel</span>[% END %]
+[% IF instance.processorManufacturer == "AMD" %]<span class="badge text-bg-danger">AMD</span>[% END %]
+[% IF instance.processorManufacturer == "AWS"%]<span class="badge text-bg-success">AWS</span>[% END %]
+[% IF instance.processorManufacturer == "Apple"%]<span class="badge text-bg-light">Apple</span>[% END %]
+[%- END -%]
+
+[%- MACRO badgeBareMetal(instance) BLOCK -%]
+[% IF instance.bareMetal %]<span class="badge text-bg-secondary">Bare Metal</span>[% END %]
+[%- END -%]
+
+[%- MACRO badgeGpu(instance) BLOCK -%]
+[% IF instance.gpuTotalGpuMemoryInMiB && instance.gpuTotalGpuMemoryInMiB > 0; %]<span class="badge text-bg-info">GPU</span>[% END %]
+[%- END -%]
+
+[%- MACRO badgeSap(instance) BLOCK -%]
+[% IF instance.sapSupported %]<span class="badge text-bg-warning" title="Certified for SAP">SAP</span>[% END %]
+[%- END -%]
+
+[%- MACRO badgeSapHana(instance) BLOCK -%]
+[% IF instance.sapHanaSupported %]<span class="badge text-bg-warning" title="Certified for SAP HANA">HANA</span>[% END %]
+[%- END -%]
+
+[%- MACRO badgeBurstablePerformanceSupported(instance) BLOCK -%]
+[% IF instance.burstablePerformanceSupported %]<span class="badge text-bg-info" title="Burstable performance instance">Burstable</span>[% END %]
+[%- END -%]
+
+[%- MACRO booleanYesNo(value) BLOCK -%]
+[% IF value %]yes[% ELSE %]no[% END %]
+[%- END -%]

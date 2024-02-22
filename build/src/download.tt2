@@ -1,0 +1,81 @@
+[%-
+	url = '/download.html';
+	title = 'Download all Amazon EC2 Instance Types';
+	description = 'Download CSV & SQL exports of every Amazon EC2 instance across all AWS locations. Compare, filter, optimize!';
+-%]
+[%- PROCESS include_header.tt2 -%]
+
+<h1>Download</h1>
+
+<p>
+Get all Amazon Elastic Compute Cloud (EC2) instance types with one click!
+Download a handy CSV file or compressed SQL dump containing all Amazon EC2 instance types,
+Amazon Elastic Block Store (EBS) volume types, AWS regions, AWS local zones, and AWS wavelength zones.
+Open the CSV with your favorite spreadsheet software (MS Excel, LibreOffice, Google Sheets) or import the SQL data into your preferred database (like SQLite).
+</p>
+
+<h2>Spreadsheet</h2>
+<p>Comma Separated Values (CSV) file with Amazon EC2 instance types, AWS regions, AWS local zones, and AWS wavelength zones.</p>
+<p>
+	<a class="btn btn-primary" href="/aws-instances-locations.csv?[% timestamp %]" download="aws-instances-locations.csv">
+		Download CSV ([% csvFileSize %] MB)
+	</a>
+<p>
+
+<h2>Database</h2>
+<p>
+Gzip compressed Structured Query Language (SQL) export with Amazon EC2 instance types,
+Amazon Elastic Block Store (EBS) volume types, AWS regions, AWS local zones, and AWS wavelength zones.
+</p>
+<p>
+	<a class="btn btn-primary" href="/aws-instances-locations.sql.gz?[% timestamp %]" download="aws-instances-locations.sql.gz">
+		Download SQL ([% sqlFileSize %] MB)
+	</a>
+<p>
+
+<h2>Command Line</h2>
+
+<p>
+Go beyond basic spreadsheets!
+With the SQL export, you can analyze all Amazon EC2 instance types using powerful command-line tools.
+No need for complex software installations;
+just use tools like <code>sqlite3</code> or your favorite SQL client.
+It's faster, more flexible, and perfect for automating tasks.
+</p>
+
+<pre><code><span class="text-muted"># Download SQL export</span>
+curl -O [% site.url %]/aws-instances-locations.sql.gz
+<span class="text-muted"># Decompress SQL export</span>
+gzip -d aws-instances-locations.sql.gz
+<span class="text-muted"># Import SQL dump</span>
+sqlite3 aws.db &lt; aws-instances-locations.sql
+<span class="text-muted"># SQL query Amazon EC2 instance types</span>
+sqlite3 aws.db</code></pre>
+
+<p>Example SQL:</p>
+<pre><code><span class="text-danger">SELECT</span> I."instanceType", I."vCpus", I."processor", I."memorySizeInMiB", P."onDemandLinuxHr"
+<span class="text-danger">FROM</span> "instance-shared-prices" P
+<span class="text-danger">INNER JOIN</span> "instance-types" I <span class="text-danger">ON</span> P."instanceType" <span class="text-danger">=</span> I."instanceType"
+<span class="text-danger">WHERE</span> P."location" <span class="text-danger">=</span> <span class="text-warning">'eu-central-1'</span>
+<span class="text-danger">AND</span> I."vCpus" <span class="text-danger">&#62;=</span> <span class="text-warning">'8'</span>
+<span class="text-danger">AND</span> I."currentGeneration" <span class="text-danger">=</span> <span class="text-warning">'1'</span>
+<span class="text-danger">ORDER BY</span> P."onDemandLinuxHr"
+<span class="text-danger">LIMIT</span> <span class="text-primary">5</span>;</code></pre>
+
+<p>Example output:</p>
+<pre><code>t4g.2xlarge|8|AWS Graviton2 Processor|32768.0|0.3072
+c6g.2xlarge|8|AWS Graviton2 Processor|16384.0|0.3104
+c7g.2xlarge|8|AWS Graviton3 Processor|16384.0|0.3298
+t3a.2xlarge|8|AMD EPYC 7571|32768.0|0.3456
+c5a.2xlarge|8|AMD EPYC 7R32|16384.0|0.348</code></pre>
+
+<h2>Open Source</h2>
+
+<p>
+Join the open source community!
+This project embraces the power of collaboration.
+It's open source under the Apache License (version 2.0) and hosted on <a href="[% site.github.repo %]">GitHub</a>.
+Your contributions and pull requests are valuable - let's build something amazing together!
+</p>
+
+[% PROCESS include_footer.tt2 %]
