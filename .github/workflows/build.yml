@@ -72,4 +72,4 @@ jobs:
           echo "endpoint = $R2_API_ENDPOINT"               >> "$HOME/.config/rclone/rclone.conf"
           echo "acl = private"                             >> "$HOME/.config/rclone/rclone.conf"
           echo "no_check_bucket = true"                    >> "$HOME/.config/rclone/rclone.conf"
-          rclone copy --transfers 128 --checkers 256 --fast-list "web/" "r2:aws-pricing/" || exit 9
+          rclone copy --transfers 32 --checkers 64 --fast-list "web/" "r2:aws-pricing/" || exit 9
