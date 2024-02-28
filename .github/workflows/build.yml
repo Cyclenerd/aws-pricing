@@ -28,7 +28,6 @@ jobs:
           sudo apt-get install  \
             libdbd-sqlite3-perl \
             libjson-xs-perl     \
-            libplack-perl       \
             libtemplate-perl    \
             libtext-csv-perl    \
             rclone              \
