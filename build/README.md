@@ -47,6 +47,7 @@ Homebrew packages:
 
 ```bash
 brew install \
+	awscli \
 	cpanminus \
 	curl \
 	jq \
