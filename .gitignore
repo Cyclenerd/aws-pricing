@@ -11,4 +11,5 @@
 /build/*.db
 /build/*.db-journal
 /build/aws-instances-locations.sql
+!/build/last_build.txt
 .~lock*
