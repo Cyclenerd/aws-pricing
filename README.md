@@ -1,6 +1,6 @@
 # AWS Pricing
 
-[![Badge: AWS](https://img.shields.io/badge/AWS-%23232F3E.svg?logo=amazonaws&logoColor=white)](#readme)
+[![Badge: AWS](https://img.shields.io/badge/AWS-%23232F3E.svg?logo=amazonwebservices&logoColor=white)](#readme)
 [![Badge: CI](https://github.com/Cyclenerd/aws-pricing/actions/workflows/build.yml/badge.svg)](https://github.com/Cyclenerd/aws-pricing/actions/workflows/build.yml)
 [![Badge: GitHub](https://img.shields.io/github/license/cyclenerd/aws-pricing)](https://github.com/Cyclenerd/aws-pricing/blob/master/LICENSE)
 
