@@ -6,7 +6,7 @@ MY_DATABASE="ec2.db"
 sqlite3 "$MY_DATABASE" < create.sql || exit 9
 
 # Locations
-curl -O --fail "https://b0.p.awsstatic.com/locations/1.0/aws/current/locations.json" || exit 9
+curl -O --fail --compressed "https://b0.p.awsstatic.com/locations/1.0/aws/current/locations.json" || exit 9
 perl locations.pl < locations.json || exit 9
 
 # IP Ranges
