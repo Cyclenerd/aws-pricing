@@ -36,7 +36,7 @@ jobs:
             sqlite3
 
       - name: 🛎️ Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
 
       # Configure AWS Credentials for GitHub Actions
       # https://github.com/marketplace/actions/configure-aws-credentials-action-for-github-actions
