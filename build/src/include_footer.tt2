@@ -14,6 +14,8 @@
 	Last Update: <a href=[% IF gitHubRunId %]"[% gitHubServerUrl %]/[% gitHubRepository %]/actions/runs/[% gitHubRunId %]"[% ELSE %]"#"[% END %]>[% gmtime %]</a> (GMT)
 	·
 	<a href="/imprint.html">Imprint</a>
+	·
+	<a href="https://www.nkn-it.de/dsgvo.html">Datenschutz</a>
 </p>
 </footer>
 </div> <!-- // container -->
@@ -22,5 +24,22 @@
 <script src="[% site.jQuery.js %]"></script>
 <script src="[% site.bootstrapTable.js %]"></script>
 <script src="[% site.bootstrapTableStickyHeader.js %]"></script>
+<script src="/popin-min.js"></script>
+<script>
+if(!document.getElementById('i59UOEcRSLY1gwtC')){
+	const alertDiv = document.getElementById('pleaseDisableYourAdBlocker');
+	alertDiv.className = 'alert alert-danger mt-2';
+	alertDiv.role = 'alert';
+	alertDiv.innerHTML = `
+	<strong>Hi there! It looks like you're using an ad blocker.</strong>
+	I put a lot of heart and soul into keeping this site updated,
+	but the servers and coffee that power it aren't free!
+	Ads are the primary way I cover these costs and keep everything running for you.
+	Would you mind whitelisting this site?
+	It is a huge help.
+	Thank you for your support!
+	`;
+}
+</script>
 </body>
 </html>
