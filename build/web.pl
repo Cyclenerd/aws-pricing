@@ -290,7 +290,4 @@ foreach my $favicon (@favicons) {
 copy("./$csvExport", "../web/$csvExport") || die "ERROR: Can not copy '$csvExport'!\n";
 copy("./$sqlExport", "../web/$sqlExport") || die "ERROR: Can not copy '$sqlExport'!\n";
 
-copy("./src/ads.txt", "../web/ads.txt") || die "ERROR: Can not copy 'ads.txt'!\n";
-copy("./src/popin-min.js", "../web/popin-min.js") || die "ERROR: Can not copy 'popin-min.js'!\n";
-
 print "DONE\n";

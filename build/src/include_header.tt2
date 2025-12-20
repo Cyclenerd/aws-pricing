@@ -15,7 +15,6 @@
 .mbitps::after  { content: " Mbps"; }
 .mbyteps::after { content: " MBps"; }
 </style>
-<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7267449040388963" crossorigin="anonymous"></script>
 </head>
 <body>
 <header>
@@ -51,7 +50,6 @@
 </header>
 <main>
 <div class="container-fluid">
-<div id="pleaseDisableYourAdBlocker"></div>
 <div class="row mt-2 mb-2">
 <div class="col">
 <ul class="nav nav-tabs">
