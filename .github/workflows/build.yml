@@ -42,7 +42,7 @@ jobs:
       # https://github.com/marketplace/actions/configure-aws-credentials-action-for-github-actions
       - id: auth
         name: 🔐 Authenticate to AWS
-        uses: aws-actions/configure-aws-credentials@v5
+        uses: aws-actions/configure-aws-credentials@v6
         with:
           role-to-assume: ${{ env.AWS_ROLE }}
           aws-region: ${{ env.AWS_REGION }}
