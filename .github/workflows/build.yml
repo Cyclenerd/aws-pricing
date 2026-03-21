@@ -81,4 +81,11 @@ jobs:
             --sftp-user "$SSH_USER" \
             --sftp-key-file "$HOME/.ssh/deploy.key" \
             --sftp-known-hosts-file "$HOME/.ssh/known_hosts" \
-            --transfers 32 --checkers 64 || exit 9
+            --transfers 4 \
+            --checkers 4 \
+            --sftp-concurrency 128 \
+            --sftp-disable-hashcheck \
+            --no-checksum \
+            --sftp-set-modtime=false \
+            --ignore-times \
+            --use-mmap || exit 9
