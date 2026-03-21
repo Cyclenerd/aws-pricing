@@ -8,9 +8,6 @@ on:
 env:
   AWS_REGION : "us-east-1"
   AWS_ROLE: ${{ secrets.AWS_ROLE }}
-  R2_ACCESS_KEY_ID: ${{ secrets.R2_ACCESS_KEY_ID }}
-  R2_SECRET_ACCESS_KEY: ${{ secrets.R2_SECRET_ACCESS_KEY }}
-  R2_API_ENDPOINT: ${{ secrets.R2_API_ENDPOINT }}
 
 # Sets permissions of the GITHUB_TOKEN to allow deployment to GitHub
 permissions:
@@ -32,7 +29,7 @@ jobs:
             libjson-xs-perl     \
             libtemplate-perl    \
             libtext-csv-perl    \
-            rclone              \
+            rsync               \
             sqlite3
 
       - name: 🛎️ Checkout
@@ -67,15 +64,15 @@ jobs:
           cd build || exit 9
           bash commit.sh || exit 9
 
-      - name: 🪣 Publish website
+      - name: 🚀 Publish website
+        env:
+          SSH_KEY: ${{ secrets.SSH_KEY }}
+          SSH_SERVER: ${{ secrets.SSH_SERVER }}
+          SSH_PORT: ${{ secrets.SSH_PORT }}
+          SSH_USER: ${{ secrets.SSH_USER }}
         run: |
-          mkdir -p "$HOME/.config/rclone" || exit 9
-          echo "[r2]"                                       > "$HOME/.config/rclone/rclone.conf" || exit 9
-          echo "type = s3"                                 >> "$HOME/.config/rclone/rclone.conf"
-          echo "provider = Cloudflare"                     >> "$HOME/.config/rclone/rclone.conf"
-          echo "access_key_id = $R2_ACCESS_KEY_ID"         >> "$HOME/.config/rclone/rclone.conf"
-          echo "secret_access_key = $R2_SECRET_ACCESS_KEY" >> "$HOME/.config/rclone/rclone.conf"
-          echo "endpoint = $R2_API_ENDPOINT"               >> "$HOME/.config/rclone/rclone.conf"
-          echo "acl = private"                             >> "$HOME/.config/rclone/rclone.conf"
-          echo "no_check_bucket = true"                    >> "$HOME/.config/rclone/rclone.conf"
-          rclone copy --transfers 32 --checkers 64 --fast-list "web/" "r2:aws-pricing/" || exit 9
+          mkdir -p "$HOME/.ssh" || exit 9
+          echo "$SSH_KEY" > "$HOME/.ssh/deploy.key" || exit 9
+          chmod 600 "$HOME/.ssh/deploy.key" || exit 9
+          ssh-keyscan -p "$SSH_PORT" "$SSH_SERVER" >> "$HOME/.ssh/known_hosts" || exit 9
+          rsync -avz -e "ssh -i $HOME/.ssh/deploy.key -p $SSH_PORT" web/ "$SSH_USER@$SSH_SERVER:/var/www/aws-pricing.com" || exit 9
