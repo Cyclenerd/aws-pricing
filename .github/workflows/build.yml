@@ -85,7 +85,7 @@ jobs:
             --checkers 4 \
             --sftp-concurrency 128 \
             --sftp-disable-hashcheck \
-            --no-checksum \
+            --ignore-checksum \
             --sftp-set-modtime=false \
             --ignore-times \
             --use-mmap || exit 9
