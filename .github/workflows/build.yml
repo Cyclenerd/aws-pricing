@@ -29,7 +29,7 @@ jobs:
             libjson-xs-perl     \
             libtemplate-perl    \
             libtext-csv-perl    \
-            rsync               \
+            rclone              \
             sqlite3
 
       - name: 🛎️ Checkout
@@ -59,7 +59,7 @@ jobs:
           cat "web/eu-central-1.html" | grep "Frankfurt" || exit 9
           jq -e '.[] | .instanceType' "web/instances-locations.json" | grep "t3.medium" || exit 9
 
-      - name: Commit last build
+      - name: 💾 Commit last build
         run: |
           cd build || exit 9
           bash commit.sh || exit 9
@@ -75,4 +75,10 @@ jobs:
           echo "$SSH_KEY" > "$HOME/.ssh/deploy.key" || exit 9
           chmod 600 "$HOME/.ssh/deploy.key" || exit 9
           ssh-keyscan -p "$SSH_PORT" "$SSH_SERVER" >> "$HOME/.ssh/known_hosts" || exit 9
-          rsync -avz -e "ssh -i $HOME/.ssh/deploy.key -p $SSH_PORT" web/ "$SSH_USER@$SSH_SERVER:/var/www/aws-pricing.com" || exit 9
+          rclone copy "web/" ":sftp:/var/www/aws-pricing.com" \
+            --sftp-host "$SSH_SERVER" \
+            --sftp-port "$SSH_PORT" \
+            --sftp-user "$SSH_USER" \
+            --sftp-key-file "$HOME/.ssh/deploy.key" \
+            --sftp-known-hosts-file "$HOME/.ssh/known_hosts" \
+            --transfers 32 --checkers 64 || exit 9
