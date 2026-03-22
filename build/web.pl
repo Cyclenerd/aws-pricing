@@ -245,7 +245,7 @@ $template->process(
 	{
 		'json' => $instancesLocationsJson
 	},
-${siteFolder}instances-locations.json
+	"${siteFolder}instances-locations.json"
 ) || die "Template process failed: ", $template->error(), "\n";
 
 # Misc
