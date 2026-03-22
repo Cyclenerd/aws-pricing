@@ -24,6 +24,21 @@ use Encode qw(decode);
 use JSON::XS;
 use Template;
 use File::Copy;
+use App::Options (
+	option => {
+		site_folder => {
+			required    => '0',
+			default     => '../web/',
+			description => "Site storage folder path"
+		},
+	},
+);
+
+# Get site folder from options
+my $siteFolder = $App::options{site_folder};
+
+# Ensure site_folder ends with a slash
+$siteFolder .= '/' unless $siteFolder =~ /\/$/;
 
 # Open DB
 my $dbFile  = './ec2.db';
@@ -98,7 +113,7 @@ while (my $instanceLocation = $instancesLocationsSth->fetchrow_hashref) {
 $instancesLocationsSth->finish;
 
 # Template
-mkdir('../web/');
+mkdir($siteFolder);
 my $gmtime = gmtime();
 my $timestamp = time();
 my $template = Template->new(
@@ -132,7 +147,7 @@ foreach my $instancesPage (@instancesPages) {
 			'instancesSap'     => \@instancesSap,
 			'instancesSapHana' => \@instancesSapHana,
 		},
-		"../web/$instancesPage.html"
+		"${siteFolder}$instancesPage.html"
 	) || die "Template process failed: ", $template->error(), "\n";
 }
 
@@ -149,7 +164,7 @@ foreach my $locationsPage (@locationsPages) {
 			'localZones'      => \@localZones,
 			'wavelengthZones' => \@wavelengthZones,
 		},
-		"../web/$locationsPage.html"
+		"${siteFolder}$locationsPage.html"
 	) || die "Template process failed: ", $template->error(), "\n";
 }
 
@@ -189,7 +204,7 @@ foreach my $location (@locations) {
 			'locationInstances' => \@locationInstances,
 			'locationDisks'     => \@locationDisks,
 		},
-		"../web/$locationCode.html"
+		"${siteFolder}$locationCode.html"
 	) || die "Template process failed: ", $template->error(), "\n";
 }
 
@@ -217,14 +232,14 @@ foreach my $instance (@instances) {
 			'instance'          => $instance,
 			'instanceLocations' => \@instanceLocations,
 		},
-		"../web/$instanceType.html"
+		"${siteFolder}$instanceType.html"
 	) || die "Template process failed: ", $template->error(), "\n";
 }
 
 # All Instance Types  in all Locations
 print "Instance Picker:\n";
 print "\tpicker.js\n";
-$template->process('picker.js', {}, '../web/picker.js') || die "Template process failed: ", $template->error(), "\n";
+$template->process('picker.js', {}, "${siteFolder}picker.js") || die "Template process failed: ", $template->error(), "\n";
 print "\tinstances-locations.json\n";
 my $instancesLocationsJson = encode_json \@instancesLocations;
 $instancesLocationsJson = decode('UTF-8', $instancesLocationsJson); # force UTF-8
@@ -233,7 +248,7 @@ $template->process(
 	{
 		'json' => $instancesLocationsJson
 	},
-	'../web/instances-locations.json'
+${siteFolder}instances-locations.json
 ) || die "Template process failed: ", $template->error(), "\n";
 
 # Misc
@@ -257,19 +272,19 @@ foreach my $miscPage (@miscPages) {
 			'locations' => \@locations,
 			'instances' => \@instances,
 		},
-		"../web/$miscPage.$fileExtension"
+		"${siteFolder}$miscPage.$fileExtension"
 	) || die "Template process failed: ", $template->error(), "\n";
 }
 
 # Images
-mkdir('../web/img/');
+mkdir("${siteFolder}img/");
 my @images = (
 	'combine-filter.png',
 	'filter.png',
 	'social.png',
 );
 foreach my $image (@images) {
-	copy("./src/img/$image", "../web/img/$image") || die "ERROR: Can not copy '$image'!\n";
+	copy("./src/img/$image", "${siteFolder}img/$image") || die "ERROR: Can not copy '$image'!\n";
 }
 
 # Favicon
@@ -283,11 +298,11 @@ my @favicons = (
 	'site.webmanifest',
 );
 foreach my $favicon (@favicons) {
-	copy("./src/img/favicon/$favicon", "../web/$favicon") || die "ERROR: Can not copy '$favicon'!\n";
+	copy("./src/img/favicon/$favicon", "${siteFolder}$favicon") || die "ERROR: Can not copy '$favicon'!\n";
 }
 
 # Exports
-copy("./$csvExport", "../web/$csvExport") || die "ERROR: Can not copy '$csvExport'!\n";
-copy("./$sqlExport", "../web/$sqlExport") || die "ERROR: Can not copy '$sqlExport'!\n";
+copy("./$csvExport", "${siteFolder}$csvExport") || die "ERROR: Can not copy '$csvExport'!\n";
+copy("./$sqlExport", "${siteFolder}$sqlExport") || die "ERROR: Can not copy '$sqlExport'!\n";
 
 print "DONE\n";
