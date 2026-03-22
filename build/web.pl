@@ -1,6 +1,6 @@
 #!/usr/bin/env perl
 
-# Copyright 2024 Nils Knieling. All Rights Reserved.
+# Copyright 2024-2026 Nils Knieling. All Rights Reserved.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -124,9 +124,6 @@ my $template = Template->new(
 		'timestamp'        => $timestamp,
 		'csvFileSize'      => $fileSizeCsvExport,
 		'sqlFileSize'      => $fileSizeSqlExport,
-		'gitHubServerUrl'  => $ENV{'GITHUB_SERVER_URL'} || '',
-		'gitHubRepository' => $ENV{'GITHUB_REPOSITORY'} || '',
-		'gitHubRunId'      => $ENV{'GITHUB_RUN_ID'}     || '',
 	}
 );
 
