@@ -19,12 +19,12 @@ site = {
 		js  => 'https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.3/js/bootstrap.bundle.min.js'
 	},
 	bootstrapTable = {
-		css => 'https://cdnjs.cloudflare.com/ajax/libs/bootstrap-table/1.21.2/bootstrap-table.min.css'
-		js  => 'https://cdnjs.cloudflare.com/ajax/libs/bootstrap-table/1.21.2/bootstrap-table.min.js'
+		css => 'https://cdnjs.cloudflare.com/ajax/libs/bootstrap-table/1.22.2/bootstrap-table.min.css'
+		js  => 'https://cdnjs.cloudflare.com/ajax/libs/bootstrap-table/1.22.2/bootstrap-table.min.js'
 	},
 	bootstrapTableStickyHeader = {
-		css => 'https://cdnjs.cloudflare.com/ajax/libs/bootstrap-table/1.21.2/extensions/sticky-header/bootstrap-table-sticky-header.min.css'
-		js  => 'https://cdnjs.cloudflare.com/ajax/libs/bootstrap-table/1.21.2/extensions/sticky-header/bootstrap-table-sticky-header.min.js'
+		css => 'https://cdnjs.cloudflare.com/ajax/libs/bootstrap-table/1.22.2/extensions/sticky-header/bootstrap-table-sticky-header.min.css'
+		js  => 'https://cdnjs.cloudflare.com/ajax/libs/bootstrap-table/1.22.2/extensions/sticky-header/bootstrap-table-sticky-header.min.js'
 	}
 };
 PROCESS include_macros.tt2;
