@@ -1,5 +1,7 @@
+</div> <!-- // container -->
 </main>
 <footer class="footer py-3 mt-2 text-muted">
+<div class="container-fluid">
 <p>
 	Copyright [% USE date; date.format(date.now, '%Y'); %] <a href="https://www.nkn-it.de/">Nils Knieling</a>
 	·
@@ -17,8 +19,8 @@
 	·
 	<a href="https://www.nkn-it.de/dsgvo.html">Datenschutz</a>
 </p>
-</footer>
 </div> <!-- // container -->
+</footer>
 
 <script src="[% site.bootstrap.js %]"></script>
 <script src="[% site.jQuery.js %]"></script>
