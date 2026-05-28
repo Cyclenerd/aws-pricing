@@ -6,17 +6,17 @@ MY_DATABASE="ec2.db"
 sqlite3 "$MY_DATABASE" < create.sql || exit 9
 
 # Locations
-curl -O --fail --compressed "https://b0.p.awsstatic.com/locations/1.0/aws/current/locations.json" || exit 9
+curl -sSfL --compressed "https://b0.p.awsstatic.com/locations/1.0/aws/current/locations.json" -o locations.json || exit 9
 perl locations.pl < locations.json || exit 9
 
 # IP Ranges
-curl -O --fail "https://ip-ranges.amazonaws.com/ip-ranges.json" || exit 9
+curl -sSfL "https://ip-ranges.amazonaws.com/ip-ranges.json" -o ip-ranges.json || exit 9
 perl ip-ranges.pl < ip-ranges.json || exit 9
 
 # Prices
 bash price-lists.sh || exit 9
 # Spot price
-curl -O --fail "https://website.spot.ec2.aws.a2z.com/spot.json" || exit 9
+curl -sSfL "https://website.spot.ec2.aws.a2z.com/spot.json" -o spot.json || exit 9
 perl spot.pl < spot.json || exit 9
 
 # Instace Types (EC2)

@@ -65,7 +65,7 @@ jq -r ".[].code" "locations.json" > locations.txt || exit 9
 echo "Download:"
 while read -r REGION_CODE; do
 	echo "$REGION_CODE"
-	if curl --fail "https://pricing.us-east-1.amazonaws.com/offers/v1.0/aws/AmazonEC2/current/$REGION_CODE/index.csv" -o "./import/download.csv"; then
+	if curl -sSfL "https://pricing.us-east-1.amazonaws.com/offers/v1.0/aws/AmazonEC2/current/$REGION_CODE/index.csv" -o "./import/download.csv"; then
 		tail -n +6 "./import/download.csv" > "./import/$REGION_CODE.csv" || exit 9
 	fi
 	rm -f "./import/download.csv"
