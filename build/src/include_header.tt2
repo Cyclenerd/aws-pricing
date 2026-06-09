@@ -33,6 +33,8 @@
 						<li><a class="dropdown-item" href="https://gcloud-compute.com/">Google Compute Engine Machine Type Comparison</a></li>
 						<li><a class="dropdown-item" href="https://gcloud-iam.nkn-it.de/">Google Cloud Identity and Access Management (IAM)</a></li>
 						<li><a class="dropdown-item" href="https://gcloud-org-policies.nkn-it.de/">Google Compute Organization Policy Constraints</a></li>
+						<li><hr class="dropdown-divider"></li>
+						<li><a class="dropdown-item" href="https://stackit.nkn-it.de/">STACKIT Compute Engine Pricing</a></li>
 					</ul>
 				</li>
 			</ul>
